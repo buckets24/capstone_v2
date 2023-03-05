@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.overflowHidden {
+  height: 100vh;
+  overflow: hidden;
+}
