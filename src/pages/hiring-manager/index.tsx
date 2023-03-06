@@ -22,7 +22,7 @@ function Developer ({ userId }: Props) {
     setLoading(true)
 
     const { data } = await supabaseClient
-      .from('candidates')
+      .from('users')
       .select('*')
       .filter('first_name', 'in', '("Carlo")')
 
@@ -35,7 +35,7 @@ function Developer ({ userId }: Props) {
   //   setLoading(true)
 
   //   const { data } = await supabaseClient
-  //     .from('candidates')
+  //     .from('users')
   //     .select()
   //     .like('first_name', `%${searchText}%`)
   //     .like('last_name', `%${searchText}%`)

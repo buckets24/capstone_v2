@@ -53,7 +53,7 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
     ]
 
     const { data, error } = await supabaseClient
-      .from('candidates')
+      .from('users')
       .update(payload)
       .eq('email', candidate?.email)
       .select()

@@ -39,7 +39,7 @@ function DeveloperWorkingExperience ({ user }: DeveloperWorkingExperienceProps) 
     setSubmitting(true)
 
     const { data, error } = await supabaseClient
-      .from('candidates')
+      .from('users')
       .update([{
         ...candidate,
         working_experience: newItems?.length === 0 ? null : newItems

@@ -24,7 +24,7 @@ export default function RoleSelectPage ({ userId, userEmail }: { userId: string,
 
   const updateRole = async (role: string) => {
     const { data, error } = await supabaseClient
-      .from('candidates')
+      .from('users')
       .update([{
         ...candidate,
         role
@@ -47,7 +47,7 @@ export default function RoleSelectPage ({ userId, userEmail }: { userId: string,
     console.log(candidate, userEmail)
 
     const { data, error } = await supabaseClient
-      .from('candidates')
+      .from('users')
       .insert([{
         role,
         email: userEmail

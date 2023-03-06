@@ -39,7 +39,7 @@ function DeveloperEducation ({ user }: DeveloperEducationProps) {
     setSubmitting(true)
 
     const { data, error } = await supabaseClient
-      .from('candidates')
+      .from('users')
       .update([{
         ...candidate,
         school_info: newItems?.length === 0 ? null : newItems

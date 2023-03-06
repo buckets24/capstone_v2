@@ -25,7 +25,7 @@ const useUserStore = create<UserStoreType>()(
         //   console.log(get()?.candidate?.email, 'get()?.candidate?.email')
         //   console.log(currentCandidate?.email)
         //   await supabase
-        //     .from('candidates')
+        //     .from('users')
         //     .update([
         //       {
         //         ...currentCandidate,
@@ -48,7 +48,7 @@ const useUserStore = create<UserStoreType>()(
           get()?.setSubmitting(true)
 
           await supabase
-            .from('candidates')
+            .from('users')
             .update([
               {
                 ...currentCandidate,
