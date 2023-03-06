@@ -24,7 +24,6 @@ function Developer ({ userId }: Props) {
     const { data } = await supabaseClient
       .from('users')
       .select('*')
-      .filter('first_name', 'in', '("Carlo")')
 
     setLoading(false)
 
