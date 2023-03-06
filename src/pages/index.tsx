@@ -61,9 +61,17 @@ const Home = () => {
         width='30%'
         height='300px'
         display='flex'
+        flexDirection='column'
         justifyContent='center'
         alignItems='center'
       >
+        <Stack
+          width='100%'
+          alignItems='center'
+          pb={2}
+        >
+          <h1>Hiring Depot</h1>
+        </Stack>
         {isLoading || submitting ? <CircularProgress size={80} /> : <LoginModule />}
       </Box>
     </Stack>
