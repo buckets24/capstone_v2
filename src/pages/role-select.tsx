@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { useUserStore } from 'stores/user.store'
 import { CandidateType } from 'types/Candidate.type'
+import { developerQuestions } from 'utils/developerQuestions'
 import { navigate } from 'utils/navigate'
 
 export default function RoleSelectPage ({ userId, userEmail }: { userId: string, userEmail: string }) {
@@ -50,7 +51,8 @@ export default function RoleSelectPage ({ userId, userEmail }: { userId: string,
       .from('users')
       .insert([{
         role,
-        email: userEmail
+        email: userEmail,
+        questions: developerQuestions
       }])
       .eq('email', userEmail)
       .select()
