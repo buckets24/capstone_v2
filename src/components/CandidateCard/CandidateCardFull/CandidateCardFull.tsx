@@ -215,7 +215,7 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
                   color='ink.500'
                   fontWeight={600}
                 >
-                  Expected Salary {candidate?.expected_salary} SGD
+                  Expected Salary {candidate?.expected_salary} USD
                 </Typography>
               </Stack>
             </Stack>
