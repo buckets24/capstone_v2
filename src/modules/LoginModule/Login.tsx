@@ -42,6 +42,7 @@ function LoginModule () {
     <form
       noValidate
       onSubmit={formik?.handleSubmit}
+      style={{ width: '100%' }}
     >
       <Stack
         flexDirection='column'

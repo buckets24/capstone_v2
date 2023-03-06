@@ -54,6 +54,14 @@ export const baseTheme = createTheme({
         }
       }
     },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          background: '#FFFFFF',
+          paddingRight: '5px'
+        }
+      }
+    },
     MuiTypography: {
       styleOverrides: {
         root: {
@@ -80,6 +88,7 @@ export const baseTheme = createTheme({
         root: {
           borderWidth: '2px',
           borderRadius: '8px',
+          fontSize: '14px',
           color: themeColors.ink[800],
           minHeight: '50px',
           '&:hover .MuiOutlinedInput-notchedOutline': {

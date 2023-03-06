@@ -21,7 +21,8 @@ const Home = () => {
     const { data } = await supabaseClient
       .from('candidates')
       .select('*')
-      .eq('userId', user?.id)
+      .eq('email', user?.email)
+
     const candidate = data?.[0] as unknown as CandidateType
 
     setCandidate(candidate)

@@ -16,7 +16,7 @@ interface DeveloperMainInfoProps {
   user: CandidateType | null
 }
 
-function DeveloperQuestionsModule({ user }: DeveloperMainInfoProps) {
+function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
   const { supabaseClient } = useSessionContext()
 
   const candidateState = useUserStore((state) => state.candidate)

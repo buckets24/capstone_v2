@@ -9,10 +9,14 @@ import { useUserStore } from 'stores/user.store'
 import { CandidateType } from 'types/Candidate.type'
 import { navigate } from 'utils/navigate'
 
-export default function RoleSelectPage ({ userId }: { userId: string }) {
+export default function RoleSelectPage ({ userId, userEmail }: { userId: string, userEmail: string }) {
   const { supabaseClient } = useSessionContext()
   const { setCandidate, candidate } = useUserStore()
   const [submitting, setSubmitting] = useState(false)
+
+  const hasRecords = candidate !== null
+
+  console.log(hasRecords, 'candidate')
 
   const notifySuccess = () =>
     toast.success('Successfully update your experience.')
@@ -26,6 +30,29 @@ export default function RoleSelectPage ({ userId }: { userId: string }) {
         role
       }])
       .eq('email', candidate?.email)
+      .select()
+
+    if (!error) {
+      setCandidate(data?.[0] as unknown as CandidateType)
+      notifySuccess()
+      setSubmitting(false)
+      navigate(role === 'developer' ? '/developer' : '/hiring-manager')
+    } else {
+      notifyError()
+      setSubmitting(false)
+    }
+  }
+
+  const createUser = async (role: string) => {
+    console.log(candidate, userEmail)
+
+    const { data, error } = await supabaseClient
+      .from('candidates')
+      .insert([{
+        role,
+        email: userEmail
+      }])
+      .eq('email', userEmail)
       .select()
 
     if (!error) {
@@ -65,7 +92,7 @@ export default function RoleSelectPage ({ userId }: { userId: string }) {
             disabled={submitting}
             label='Software Engineer'
             color='primary'
-            onClick={() => updateRole('developer')}
+            onClick={() => hasRecords ? updateRole('developer') : createUser('developer')}
           />
           <Button
             disabled={submitting}
@@ -73,7 +100,7 @@ export default function RoleSelectPage ({ userId }: { userId: string }) {
             color='primary'
             variant='outlined'
             labelColor='orange.main'
-            onClick={() => updateRole('hiring-manager')}
+            onClick={() => hasRecords ? updateRole('hiring-manager') : createUser('hiring-manager')}
           />
         </Stack>
       </Box>
@@ -98,7 +125,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
   return {
     props: {
-      userId: session.user?.id
+      userId: session.user?.id,
+      userEmail: session.user?.email
     }
   }
 }
