@@ -8,7 +8,7 @@ import DeveloperMainInfo from 'modules/Developer/MainInfo'
 import DeveloperAboutInfo from 'modules/Developer/About'
 import DeveloperWorkingExperience from 'modules/Developer/WorkingExperience'
 import DeveloperEducation from 'modules/Developer/Education'
-import HeaderDeveloper from 'components/Layout/Header'
+import Header from 'components/Layout/Header'
 import { Button } from 'components/Button/Button'
 import { navigate } from 'utils/navigate'
 import { useUserStore } from 'stores/user.store'
@@ -41,7 +41,7 @@ function Developer ({ userId }: Props) {
 
   return (
     <>
-      <HeaderDeveloper />
+      <Header role='developer' />
       <Box
         display='flex'
         alignItems='center'

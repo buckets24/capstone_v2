@@ -1,7 +1,7 @@
 import { Box, Container, Stack } from '@mui/material'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { GetServerSidePropsContext } from 'next'
-import HeaderDeveloper from 'components/Layout/Header'
+import Header from 'components/Layout/Header'
 import { Button } from 'components/Button/Button'
 import { navigate } from 'utils/navigate'
 import DeveloperQuestionsModule from 'modules/Developer/Questions'
@@ -16,7 +16,7 @@ function DeveloperQuestions ({ userId }: Props) {
 
   return (
     <>
-      <HeaderDeveloper />
+      <Header role='developer' />
       <Box
         display='flex'
         alignItems='center'

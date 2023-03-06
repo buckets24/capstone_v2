@@ -1,5 +1,5 @@
-import { Box, CircularProgress, Container, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { Box, CircularProgress, Container, Stack } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { GetServerSidePropsContext } from 'next'
 import { useSessionContext } from '@supabase/auth-helpers-react'
@@ -7,8 +7,6 @@ import { CandidateType } from 'types/Candidate.type'
 import Header from 'components/Layout/Header'
 import { navigate } from 'utils/navigate'
 import { CandidateCard } from 'components/CandidateCard'
-import { FormTextField } from 'components/Form/TextField'
-import { Button } from 'components/Button/Button'
 
 interface Props {
   userId: string
@@ -19,7 +17,6 @@ function Developer ({ userId }: Props) {
 
   const [candidates, setCandidates] = useState<CandidateType[] | null>(null)
   const [loading, setLoading] = useState(false)
-  const [searchText, setSearchText] = useState('')
 
   const getUsers = async () => {
     setLoading(true)
