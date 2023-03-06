@@ -1,19 +1,45 @@
-import { Box } from '@mui/material'
+import { Box, CircularProgress } from '@mui/material'
 import { Stack } from '@mui/system'
 import { useSessionContext, useUser } from '@supabase/auth-helpers-react'
 import LoginModule from 'modules/LoginModule'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { navigate } from 'utils/navigate'
+import { useUserStore } from 'stores/user.store'
+import { CandidateType } from 'types/Candidate.type'
 
 const Home = () => {
-  const { isLoading, session, error } = useSessionContext()
+  const { isLoading, error } = useSessionContext()
   const user = useUser()
+  const { supabaseClient } = useSessionContext()
+  const { setCandidate } = useUserStore()
+
+  const [submitting, setSubmitting] = useState(false)
+
+  const getUser = async () => {
+    setSubmitting(true)
+
+    const { data } = await supabaseClient
+      .from('candidates')
+      .select('*')
+      .eq('userId', user?.id)
+    const candidate = data?.[0] as unknown as CandidateType
+
+    setCandidate(candidate)
+
+    if (!candidate?.role) {
+      navigate('/role-select')
+    } else {
+      candidate?.role === 'developer'
+        ? navigate('/developer')
+        : navigate('/hiring-manager')
+    }
+  }
 
   useEffect(() => {
-    if (session) {
-      navigate('/role-select')
+    if (user) {
+      getUser()
     }
-  }, [session, user])
+  }, [user])
 
   if (error) {
     return <p>{error.message}</p>
@@ -33,8 +59,11 @@ const Home = () => {
       <Box
         width='30%'
         height='300px'
+        display='flex'
+        justifyContent='center'
+        alignItems='center'
       >
-        <LoginModule />
+        {isLoading || submitting ? <CircularProgress size={80} /> : <LoginModule />}
       </Box>
     </Stack>
   )

@@ -37,6 +37,10 @@ export interface CandidateType {
     description: string
     awards: string[]
   }[]
-  questions: any[]
+  questions: {
+    question: string
+    answer: string | number | boolean
+  }[]
   job_title: string
+  role: string
 }

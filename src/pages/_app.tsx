@@ -44,11 +44,6 @@ const OmhApp = (props: AppLayoutProps) => {
     }
   })
 
-  // const getUser = async () => {
-  //   const { data } = await supabaseClient.from('candidates').select('*').eq('userId', pageProps.initialSession?.userId)
-  //   console.log(data, 'data')
-  // }
-
   useEffect(() => setMounted(true), [])
 
   return (

@@ -6,7 +6,8 @@ const profileFormSchema = Yup.object().shape({
   job_title: Yup.string().trim().required('Position is required.'),
   email: Yup.string().trim().required().email('Email Address is required.'),
   mobile: Yup.string().trim().required('Mobile number is required.'),
-  location: Yup.string().trim().required('Location is required.')
+  location: Yup.string().trim().required('Location is required.'),
+  expected_salary: Yup.string().trim().required('Expected salary is required.')
 })
 
 export { profileFormSchema }

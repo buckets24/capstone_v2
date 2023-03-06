@@ -1,4 +1,4 @@
-import { Stack, Box, MenuItem } from '@mui/material'
+import { Stack, Box, MenuItem, Divider, FormControlLabel, Switch } from '@mui/material'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { Button } from 'components/Button/Button'
 import { FormTextField } from 'components/Form/TextField'
@@ -22,6 +22,7 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
   const notifyError = () => toast.success('Error updating the profile.')
 
   const [previewImage, setPreviewImage] = useState<string | null>(null)
+  const [isActivelyLooking, setIsLooking] = useState(candidate?.actively_looking || false)
 
   const handleFileAttach = async (event: ChangeEvent<HTMLInputElement>) => {
     console.log(event?.target?.files)
@@ -49,7 +50,9 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
       github_link: candidate?.github_link ?? '',
       linkedin_link: candidate?.linkedin_link ?? '',
       twitter_link: candidate?.twitter_link ?? '',
-      facebook_link: candidate?.facebook_link ?? ''
+      facebook_link: candidate?.facebook_link ?? '',
+      expected_salary: candidate?.expected_salary ?? '',
+      actively_looking: isActivelyLooking
     },
     validationSchema: profileFormSchema,
     isInitialValid: true,
@@ -61,7 +64,8 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
         .update([
           {
             ...candidate,
-            ...values
+            ...values,
+            actively_looking: isActivelyLooking
           }
         ])
         .eq('email', candidate?.email)
@@ -211,7 +215,42 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
               />
             </Box>
           </Stack>
-
+          <Divider />
+          <Stack
+            flexDirection='column'
+            justifyContent='space-between'
+            gap={2}
+          >
+            <Box>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={isActivelyLooking === true}
+                    value={isActivelyLooking}
+                    onChange={() => setIsLooking(!isActivelyLooking)}
+                  />
+                }
+                label='Actively Looking?'
+              />
+            </Box>
+            <Box>
+              <FormTextField
+                name='expected_salary'
+                value={props?.values.expected_salary}
+                onBlur={props?.handleBlur}
+                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  const value = event.target.value.replace(/\D/g, '')
+                  props?.setFieldValue('expected_salary', value, true)
+                }}
+                error={Boolean(
+                  props?.touched.expected_salary && props?.errors.expected_salary
+                )}
+                fullWidth
+                label='Expected salary in USD'
+              />
+            </Box>
+          </Stack>
+          <Divider />
           <Stack
             flexDirection='column'
             justifyContent='space-between'
@@ -270,7 +309,7 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
               />
             </Box>
           </Stack>
-
+          <Divider />
           <Box>
             <Button
               label={submitting ? 'Submitting' : 'Submit'}

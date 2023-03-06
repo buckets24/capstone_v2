@@ -51,7 +51,6 @@ function ProfileEducationFormModule ({ onClose, educationIndex }: ProfileEducati
       awards: []
     },
     validationSchema: profileEducationSchema,
-    validateOnMount: true,
     onSubmit: async (values: FormikValues) => {
       const schoolInfo = candidate?.school_info
       let payload = null
@@ -99,8 +98,6 @@ function ProfileEducationFormModule ({ onClose, educationIndex }: ProfileEducati
           ]
         }
       }
-
-      console.log(payload, 'payload')
 
       const { data, error } = await supabaseClient
         .from('candidates')

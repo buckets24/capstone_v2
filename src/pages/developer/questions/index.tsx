@@ -1,43 +1,18 @@
 import { Box, Container, Stack } from '@mui/material'
-import { useEffect, useState } from 'react'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { GetServerSidePropsContext } from 'next'
-import { useSessionContext } from '@supabase/auth-helpers-react'
-import { CandidateType } from 'types/Candidate.type'
-import DeveloperMainInfo from 'modules/Developer/MainInfo'
-import DeveloperAboutInfo from 'modules/Developer/About'
-import DeveloperWorkingExperience from 'modules/Developer/WorkingExperience'
-import DeveloperEducation from 'modules/Developer/Education'
 import HeaderDeveloper from 'components/Layout/HeaderDeveloper'
 import { Button } from 'components/Button/Button'
 import { navigate } from 'utils/navigate'
+import DeveloperQuestionsModule from 'modules/Developer/Questions'
 import { useUserStore } from 'stores/user.store'
 
 interface Props {
   userId: string
 }
 
-function Developer ({ userId }: Props) {
-  const { supabaseClient } = useSessionContext()
-  const [user, setUser] = useState<CandidateType | null>(null)
-  const { setCandidate } = useUserStore()
-
-  const getUser = async () => {
-    const { data } = await supabaseClient
-      .from('candidates')
-      .select('*')
-      .eq('userId', userId)
-    if (data) {
-      setUser(data?.[0] as unknown as CandidateType)
-      setCandidate(data?.[0] as unknown as CandidateType)
-    }
-  }
-
-  useEffect(() => {
-    if (userId) {
-      getUser()
-    }
-  }, [userId])
+function DeveloperQuestions ({ userId }: Props) {
+  const { candidate } = useUserStore()
 
   return (
     <>
@@ -75,10 +50,7 @@ function Developer ({ userId }: Props) {
                 />
               </Box>
             </Stack>
-            <DeveloperMainInfo user={user} />
-            <DeveloperAboutInfo user={user} />
-            <DeveloperWorkingExperience user={user} />
-            <DeveloperEducation user={user} />
+            <DeveloperQuestionsModule user={candidate} />
           </Stack>
         </Container>
       </Box>
@@ -86,7 +58,7 @@ function Developer ({ userId }: Props) {
   )
 }
 
-export default Developer
+export default DeveloperQuestions
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const supabase = createServerSupabaseClient(ctx)

@@ -4,7 +4,6 @@ const FormTextField = ({ ...props }) => {
   return (
     <MUITextField
       {...props}
-      size='small'
       sx={{
         width: '100%',
         '& .MuiInputBase-root': {

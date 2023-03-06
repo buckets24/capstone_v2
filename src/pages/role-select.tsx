@@ -3,34 +3,41 @@ import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { Button } from 'components/Button/Button'
 import { GetServerSidePropsContext } from 'next'
-import { useEffect } from 'react'
+import { useState } from 'react'
+import { toast } from 'react-toastify'
 import { useUserStore } from 'stores/user.store'
 import { CandidateType } from 'types/Candidate.type'
 import { navigate } from 'utils/navigate'
 
 export default function RoleSelectPage ({ userId }: { userId: string }) {
   const { supabaseClient } = useSessionContext()
-  const { setCandidate } = useUserStore()
+  const { setCandidate, candidate } = useUserStore()
+  const [submitting, setSubmitting] = useState(false)
 
-  const getUser = async () => {
-    const { data } = await supabaseClient
+  const notifySuccess = () =>
+    toast.success('Successfully update your experience.')
+  const notifyError = () => toast.success('Error updating the your experience.')
+
+  const updateRole = async (role: string) => {
+    const { data, error } = await supabaseClient
       .from('candidates')
-      .select('*')
-      .eq('userId', userId)
-    const candidate = data?.[0] as unknown as CandidateType
+      .update([{
+        ...candidate,
+        role
+      }])
+      .eq('email', candidate?.email)
+      .select()
 
-    setCandidate(candidate)
-
-    if (candidate) {
-      candidate?.job_title !== 'Hiring Manager'
-        ? navigate('/developer')
-        : navigate('/hiring-manager')
+    if (!error) {
+      setCandidate(data?.[0] as unknown as CandidateType)
+      notifySuccess()
+      setSubmitting(false)
+      navigate(role === 'developer' ? '/developer' : '/hiring-manager')
+    } else {
+      notifyError()
+      setSubmitting(false)
     }
   }
-
-  useEffect(() => {
-    getUser()
-  }, [])
 
   return (
     <Stack
@@ -52,18 +59,21 @@ export default function RoleSelectPage ({ userId }: { userId: string }) {
         <Stack
           flexDirection={{ xs: 'column', sm: 'row' }}
           gap='10px'
+          mt={3}
         >
           <Button
+            disabled={submitting}
             label='Software Engineer'
             color='primary'
-            onClick={() => navigate('/developer')}
+            onClick={() => updateRole('developer')}
           />
           <Button
+            disabled={submitting}
             label='Hiring Manager'
             color='primary'
             variant='outlined'
             labelColor='orange.main'
-            onClick={() => navigate('/developer')}
+            onClick={() => updateRole('hiring-manager')}
           />
         </Stack>
       </Box>

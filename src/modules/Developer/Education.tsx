@@ -1,12 +1,16 @@
-import { Box, Chip, Divider, Paper, Stack, Typography } from '@mui/material'
+import { Box, Chip, CircularProgress, Divider, Paper, Stack, Typography } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline'
 import { CandidateType } from 'types/Candidate.type'
 import { useEffect, useState } from 'react'
 import { Drawer } from 'components/Drawer'
 import { useUserStore } from 'stores/user.store'
 import { Button } from 'components/Button/Button'
 import ProfileEducationFormModule from './ProfileEducationForm'
+import { useSessionContext } from '@supabase/auth-helpers-react'
+import { toast } from 'react-toastify'
+import { IconButton } from 'components/Button/IconButton'
 
 interface DeveloperEducationProps {
   user: CandidateType | null
@@ -15,9 +19,45 @@ interface DeveloperEducationProps {
 function DeveloperEducation ({ user }: DeveloperEducationProps) {
   const [isDrawerActive, setDrawer] = useState(false)
   const candidateStore = useUserStore()
+  const { supabaseClient } = useSessionContext()
 
   const [candidate, setCandidate] = useState<CandidateType | null>(null)
   const [currentIndex, setCurrentIndex] = useState<number | null>(null)
+  const [removeIndex, setRemoveIndex] = useState<number | null>(null)
+  const [submitting, setSubmitting] = useState(false)
+
+  const notifySuccess = () =>
+    toast.success('Successfully update your experience.')
+  const notifyError = () => toast.error('Error updating the your experience.')
+
+  async function removeItem (itemIndex: number) {
+    const items = candidate?.school_info
+    if (!items) return
+
+    const newItems = items?.filter((item, index) => itemIndex !== index && item)
+
+    setSubmitting(true)
+
+    const { data, error } = await supabaseClient
+      .from('candidates')
+      .update([{
+        ...candidate,
+        school_info: newItems?.length === 0 ? null : newItems
+      }])
+      .eq('email', candidate?.email)
+      .select()
+
+    if (!error) {
+      setCandidate(data?.[0] as unknown as CandidateType)
+      notifySuccess()
+      setSubmitting(false)
+      setCurrentIndex(null)
+      setRemoveIndex(null)
+    } else {
+      notifyError()
+      setSubmitting(false)
+    }
+  }
 
   useEffect(() => {
     candidateStore.setSubmitting(false)
@@ -107,19 +147,56 @@ function DeveloperEducation ({ user }: DeveloperEducationProps) {
                       </Stack>
                     </Stack>
 
-                    <Stack>
-                      <Button
-                        label='Edit'
-                        onClick={() => {
-                          setDrawer(true)
-                          setCurrentIndex(index)
-                        }}
-                        color='primary'
-                        variant='text'
-                        labelColor='primary'
-                        startIcon={<EditIcon />}
-                      />
-                    </Stack>
+                    {removeIndex === index
+                      ? (
+                        <Stack
+                          flexDirection='row'
+                          alignItems='center'
+                          gap={1}
+                        >
+                          {submitting
+                            ? (
+                              <CircularProgress size={40} />
+                              )
+                            : (
+                              <>
+                                <Button
+                                  label='Cancel'
+                                  color='secondary'
+                                  onClick={() => setRemoveIndex(null)}
+                                />
+                                <Button
+                                  color='error'
+                                  label='Remove'
+                                  onClick={() => removeItem(index)}
+                                />
+                              </>)}
+                        </Stack>
+                        )
+                      : (
+                        <Stack
+                          flexDirection='row'
+                          alignItems='center'
+                        >
+                          <>
+                            <IconButton
+                              color='error'
+                              onClick={() => {
+                                setDrawer(true)
+                                setCurrentIndex(index)
+                              }}
+                            >
+                              <EditIcon color='success' />
+                            </IconButton>
+                            <IconButton
+                              color='error'
+                              onClick={() => setRemoveIndex(index)}
+                            >
+                              <RemoveCircleOutlineIcon />
+                            </IconButton>
+                          </>
+                        </Stack>
+                        )}
                   </Stack>
 
                   <Stack>
