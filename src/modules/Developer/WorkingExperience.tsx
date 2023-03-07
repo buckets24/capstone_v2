@@ -76,179 +76,12 @@ function DeveloperWorkingExperience ({ user }: DeveloperWorkingExperienceProps) 
 
   return (
     <Paper sx={{ overflow: 'hidden', px: 4 }}>
-      {candidate?.working_experience
-        ? (
-          <>
-            <Stack alignItems='flex-end'>
-              <Box my={2}>
-                <Button
-                  label='Add'
-                  onClick={() => {
-                    setDrawer(true)
-                    setCurrentIndex(null)
-                  }}
-                  color='primary'
-                  variant='outlined'
-                  labelColor='primary'
-                  startIcon={<AddIcon />}
-                />
-              </Box>
-            </Stack>
-            <Stack
-              flexDirection='column'
-              alignItems='center'
-              p={3}
-              gap={3}
-            >
-              <Typography
-                variant='h6'
-                fontWeight={600}
-                textTransform='uppercase'
-                sx={{
-                  borderBottom: '1px solid'
-                }}
-              >
-                Working Experience
-              </Typography>
-
-              {candidate?.working_experience?.map((experience, index) => (
-                <Stack
-                  gap={2}
-                  key={experience.company}
-                  width='100%'
-                >
-                  <Stack
-                    flexDirection='row'
-                    justifyContent='space-between'
-                    width='100%'
-                  >
-                    <Stack
-                      alignItems='flex-start'
-                      gap={1}
-                    >
-                      <Typography
-                        variant='subtitle1'
-                        color='ink.900'
-                        fontWeight={600}
-                        textTransform='capitalize'
-                      >
-                        {experience?.company}
-                      </Typography>
-                      <Stack
-                        flexDirection='row'
-                        gap={2}
-                      >
-                        <Typography
-                  variant='subtitle2'
-                  color='ink.900'
-                  fontWeight={600}
-                  textTransform='capitalize'
-                >
-                  {experience?.position}
-                </Typography>
-                        <Typography
-                  variant='subtitle2'
-                  color='ink.500'
-                  fontWeight={300}
-                  textTransform='capitalize'
-                >
-                  {experience?.startDate}{' '}
-                  {experience.isPresent
-                          ? '- Present'
-                          : `- ${experience?.endDate}`}
-                </Typography>
-                      </Stack>
-                    </Stack>
-
-                    {removeIndex === index
-                      ? (
-                        <Stack
-                  flexDirection='row'
-                  alignItems='center'
-                  gap={1}
-                >
-                  {submitting
-                          ? (
-                            <CircularProgress size={40} />
-                            )
-                          : (
-                            <>
-                              <Button
-                                label='Cancel'
-                                color='secondary'
-                                onClick={() => setRemoveIndex(null)}
-                              />
-                              <Button
-                                color='error'
-                                label='Remove'
-                                onClick={() => removeItem(index)}
-                              />
-                            </>
-                            )}
-                </Stack>
-                        )
-                      : (
-                        <Stack
-                  flexDirection='row'
-                  alignItems='center'
-                >
-                  <>
-                          <IconButton
-                            color='error'
-                            onClick={() => {
-                              setDrawer(true)
-                              setCurrentIndex(index)
-                            }}
-                          >
-                            <EditIcon color='success' />
-                          </IconButton>
-                          <IconButton
-                            color='error'
-                            onClick={() => setRemoveIndex(index)}
-                          >
-                            <RemoveCircleOutlineIcon />
-                          </IconButton>
-                        </>
-                </Stack>
-                        )}
-                  </Stack>
-
-                  <Stack>
-                    <Typography
-                      variant='subtitle2'
-                      color='ink.500'
-                      fontWeight={300}
-                      textTransform='capitalize'
-                    >
-                      {experience?.description}
-                    </Typography>
-                  </Stack>
-
-                  <Stack
-                    flexDirection='row'
-                    flexWrap='wrap'
-                    gap={1}
-                  >
-                    {experience?.skills?.map((skill) => (
-                      <Chip
-                        key={skill}
-                        label={skill}
-                        variant='outlined'
-                      />
-                    ))}
-                  </Stack>
-
-                  <Divider />
-                </Stack>
-              ))}
-            </Stack>
-          </>
-          )
-        : (
-          <Stack alignItems='center'>
+      {candidate?.working_experience ? (
+        <>
+          <Stack alignItems='flex-end'>
             <Box my={2}>
               <Button
-                label='Add Work Experience'
+                label='Add'
                 onClick={() => {
                   setDrawer(true)
                   setCurrentIndex(null)
@@ -260,12 +93,140 @@ function DeveloperWorkingExperience ({ user }: DeveloperWorkingExperienceProps) 
               />
             </Box>
           </Stack>
-          )}
+          <Stack flexDirection='column' alignItems='center' p={3} gap={3}>
+            <Typography
+              variant='h6'
+              fontWeight={600}
+              textTransform='uppercase'
+              sx={{
+                borderBottom: '1px solid'
+              }}
+            >
+              Working Experience
+            </Typography>
 
-      <Drawer
-        open={isDrawerActive}
-        onClose={() => setDrawer(false)}
-      >
+            {candidate?.working_experience?.map((experience, index) => (
+              <Stack gap={2} key={experience.company} width='100%'>
+                <Stack
+                  flexDirection='row'
+                  justifyContent='space-between'
+                  width='100%'
+                >
+                  <Stack alignItems='flex-start' gap={1}>
+                    <Typography
+                      variant='subtitle1'
+                      color='ink.900'
+                      fontWeight={600}
+                      textTransform='capitalize'
+                    >
+                      {experience?.company}
+                    </Typography>
+                    <Stack flexDirection='row' gap={2}>
+                      <Typography
+                        variant='subtitle2'
+                        color='ink.900'
+                        fontWeight={600}
+                        textTransform='capitalize'
+                      >
+                        {experience?.position}
+                      </Typography>
+                      <Typography
+                        variant='subtitle2'
+                        color='ink.500'
+                        fontWeight={300}
+                        textTransform='capitalize'
+                      >
+                        {experience?.startDate}{' '}
+                        {experience.isPresent
+                          ? '- Present'
+                          : `- ${experience?.endDate}`}
+                      </Typography>
+                    </Stack>
+                  </Stack>
+
+                  {removeIndex === index ? (
+                    <Stack flexDirection='row' alignItems='center' gap={1}>
+                      {submitting ? (
+                        <CircularProgress size={40} />
+                      ) : (
+                        <>
+                          <Button
+                            label='Cancel'
+                            color='secondary'
+                            onClick={() => setRemoveIndex(null)}
+                          />
+                          <Button
+                            color='error'
+                            label='Remove'
+                            onClick={() => removeItem(index)}
+                          />
+                        </>
+                      )}
+                    </Stack>
+                  ) : (
+                    <Stack flexDirection='row' alignItems='center'>
+                      <>
+                        <IconButton
+                          color='error'
+                          onClick={() => {
+                            setDrawer(true)
+                            setCurrentIndex(index)
+                          }}
+                        >
+                          <EditIcon color='success' />
+                        </IconButton>
+                        <IconButton
+                          color='error'
+                          onClick={() => setRemoveIndex(index)}
+                        >
+                          <RemoveCircleOutlineIcon />
+                        </IconButton>
+                      </>
+                    </Stack>
+                  )}
+                </Stack>
+
+                <Stack>
+                  <Typography
+                    variant='subtitle2'
+                    color='ink.500'
+                    fontWeight={300}
+                    textTransform='capitalize'
+                  >
+                    {experience?.description}
+                  </Typography>
+                </Stack>
+
+                <Stack flexDirection='row' flexWrap='wrap' gap={1}>
+                  {experience?.skills?.map((skill) => (
+                    <Chip key={skill} label={skill} variant='outlined' />
+                  ))}
+                </Stack>
+
+                <Divider />
+              </Stack>
+            ))}
+          </Stack>
+        </>
+      ) : (
+        <Stack alignItems='center'>
+          <Box my={2}>
+            <Button
+              label='Add Work Experience'
+              onClick={() => {
+                setDrawer(true)
+                setCurrentIndex(null)
+              }}
+              color='primary'
+              variant='outlined'
+              labelColor='primary'
+              startIcon={<AddIcon />}
+            />
+          </Box>
+        </Stack>
+      )}
+
+      <Drawer open={isDrawerActive} onClose={() => setDrawer(false)}>
         <Box width={500}>
           <ProfileExperienceFormModule
             experienceIndex={currentIndex}

@@ -42,22 +42,10 @@ function Developer ({ userId }: Props) {
   return (
     <>
       <Header role='developer' />
-      <Box
-        display='flex'
-        alignItems='center'
-        py={10}
-        mt={2}
-      >
-        <Container
-          component='main'
-          maxWidth='md'
-        >
+      <Box display='flex' alignItems='center' py={10} mt={2}>
+        <Container component='main' maxWidth='md'>
           <Stack gap={3}>
-            <Stack
-              flexDirection='row'
-              gap={1}
-              justifyContent='flex-end'
-            >
+            <Stack flexDirection='row' gap={1} justifyContent='flex-end'>
               <Box>
                 <Button
                   label='Main Info'

@@ -39,66 +39,57 @@ function LoginModule () {
   })
 
   return (
-    <form
-      noValidate
-      onSubmit={formik?.handleSubmit}
-      style={{ width: '100%' }}
-    >
-      <Stack
-        flexDirection='column'
-        gap={3}
-      >
-        {isLinkSent
-          ? (
+    <form noValidate onSubmit={formik?.handleSubmit} style={{ width: '100%' }}>
+      <Stack flexDirection='column' gap={3}>
+        {isLinkSent ? (
+          <Box
+            display='flex'
+            flexDirection='column'
+            alignItems='center'
+            justifyContent='center'
+          >
             <Box
+              border='2px solid'
               display='flex'
-              flexDirection='column'
               alignItems='center'
               justifyContent='center'
+              p={2}
+              mb={2}
             >
-              <Box
-                border='2px solid'
-                display='flex'
-                alignItems='center'
-                justifyContent='center'
-                p={2}
-                mb={2}
-              >
-                {`Login link is sent to ${formik.values?.email}`}
-              </Box>
-              <Box>
-                <ButtonText
-                  label='Back to Login'
-                  onClick={() => setLinkSent(false)}
-                />
-              </Box>
+              {`Login link is sent to ${formik.values?.email}`}
             </Box>
-            )
-          : (
-            <>
-              <Box>
-                <FormTextField
-                  name='email'
-                  type='text'
-                  value={formik?.values.email}
-                  onBlur={formik?.handleBlur}
-                  onChange={formik.handleChange}
-                  error={Boolean(formik?.touched.email && formik?.errors.email)}
-                  label='Email Address'
-                  fullWidth
-                />
-              </Box>
+            <Box>
+              <ButtonText
+                label='Back to Login'
+                onClick={() => setLinkSent(false)}
+              />
+            </Box>
+          </Box>
+        ) : (
+          <>
+            <Box>
+              <FormTextField
+                name='email'
+                type='text'
+                value={formik?.values.email}
+                onBlur={formik?.handleBlur}
+                onChange={formik.handleChange}
+                error={Boolean(formik?.touched.email && formik?.errors.email)}
+                label='Email Address'
+                fullWidth
+              />
+            </Box>
 
-              <Box>
-                <Button
-                  disabled={!formik.isValid || isSubmitting}
-                  label={isSubmitting ? 'Logging in...' : 'Login'}
-                  onClick={() => formik?.handleSubmit()}
-                  color='primary'
-                />
-              </Box>
-            </>
-            )}
+            <Box>
+              <Button
+                disabled={!formik.isValid || isSubmitting}
+                label={isSubmitting ? 'Logging in...' : 'Login'}
+                onClick={() => formik?.handleSubmit()}
+                color='primary'
+              />
+            </Box>
+          </>
+        )}
       </Stack>
     </form>
   )

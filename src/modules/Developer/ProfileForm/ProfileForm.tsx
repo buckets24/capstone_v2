@@ -93,15 +93,8 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
   return (
     <>
       <form>
-        <Stack
-          direction='column'
-          gap={3}
-        >
-          <Stack
-            justifyContent='center'
-            alignItems='center'
-            pb={3}
-          >
+        <Stack direction='column' gap={3}>
+          <Stack justifyContent='center' alignItems='center' pb={3}>
             <AvatarUpload previewImage={previewImage}>
               <input
                 id='dropzone-file'
@@ -113,11 +106,7 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
             </AvatarUpload>
           </Stack>
 
-          <Stack
-            flexDirection='row'
-            justifyContent='space-between'
-            gap={1}
-          >
+          <Stack flexDirection='row' justifyContent='space-between' gap={1}>
             <Box flex={1}>
               <FormTextField
                 name='first_name'
@@ -191,11 +180,7 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
             </FormTextField>
           </Box>
 
-          <Stack
-            flexDirection='row'
-            justifyContent='space-between'
-            gap={1}
-          >
+          <Stack flexDirection='row' justifyContent='space-between' gap={1}>
             <Box flex={1}>
               <FormTextField
                 disabled
@@ -225,11 +210,7 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
             </Box>
           </Stack>
           <Divider />
-          <Stack
-            flexDirection='column'
-            justifyContent='space-between'
-            gap={2}
-          >
+          <Stack flexDirection='column' justifyContent='space-between' gap={2}>
             <Box>
               <FormControlLabel
                 control={
@@ -261,11 +242,7 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
             </Box>
           </Stack>
           <Divider />
-          <Stack
-            flexDirection='column'
-            justifyContent='space-between'
-            gap={2}
-          >
+          <Stack flexDirection='column' justifyContent='space-between' gap={2}>
             <Box flex={1}>
               <FormTextField
                 name='github_link'

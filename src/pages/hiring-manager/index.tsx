@@ -40,52 +40,36 @@ function Developer ({ userId }: Props) {
   return (
     <>
       <Header role='hiring-manager' />
-      <Box
-        display='flex'
-        alignItems='center'
-        py={10}
-        mt={2}
-      >
-        <Container
-          component='main'
-          maxWidth='md'
-        >
+      <Box display='flex' alignItems='center' py={10} mt={2}>
+        <Container component='main' maxWidth='md'>
           <Stack alignItems='center'>
-            {loading
-              ? (
-                <CircularProgress size={80} />
-                )
-              : (
-                <Stack
-                  width='100%'
-                  gap={3}
-                >
-                  <Stack
-                    flexDirection='row'
-                    justifyContent='space-between'
-                  >
-                    <HiringManagerNav activeRoute={router?.pathname} />
-                  </Stack>
-                  {candidates?.map((candidate, index) => {
-                    if (candidate?.first_name === null) {
-                      return null
-                    }
-
-                    return (
-                      <Box
-                        key={index}
-                        onClick={() =>
-                          navigate(
-                          `/hiring-manager/developer/${candidate?.userId}`
-                          )}
-                        sx={{ cursor: 'pointer' }}
-                      >
-                        <CandidateCard candidate={candidate} />
-                      </Box>
-                    )
-                  })}
+            {loading ? (
+              <CircularProgress size={80} />
+            ) : (
+              <Stack width='100%' gap={3}>
+                <Stack flexDirection='row' justifyContent='space-between'>
+                  <HiringManagerNav activeRoute={router?.pathname} />
                 </Stack>
-                )}
+                {candidates?.map((candidate, index) => {
+                  if (candidate?.first_name === null) {
+                    return null
+                  }
+
+                  return (
+                    <Box
+                      key={index}
+                      onClick={() =>
+                        navigate(
+                          `/hiring-manager/developer/${candidate?.userId}`
+                        )}
+                      sx={{ cursor: 'pointer' }}
+                    >
+                      <CandidateCard candidate={candidate} />
+                    </Box>
+                  )
+                })}
+              </Stack>
+            )}
           </Stack>
         </Container>
       </Box>

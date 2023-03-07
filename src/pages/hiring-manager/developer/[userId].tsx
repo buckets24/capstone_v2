@@ -45,21 +45,9 @@ function Developer ({ userId }: Props) {
   return (
     <>
       <Header role='hiring-manager' />
-      <Box
-        display='flex'
-        alignItems='center'
-        py={10}
-        mt={2}
-      >
-        <Container
-          component='main'
-          maxWidth='md'
-        >
-          <Box
-            width='100px'
-            pb={3}
-            onClick={() => navigate('/hiring-manager')}
-          >
+      <Box display='flex' alignItems='center' py={10} mt={2}>
+        <Container component='main' maxWidth='md'>
+          <Box width='100px' pb={3} onClick={() => navigate('/hiring-manager')}>
             <Button
               labelColor='primary'
               variant='text'
@@ -68,18 +56,13 @@ function Developer ({ userId }: Props) {
             />
           </Box>
           <Stack alignItems='center'>
-            {loading
-              ? (
-                <CircularProgress size={80} />
-                )
-              : (
-                <Stack
-                  width='100%'
-                  gap={3}
-                >
-                  <CandidateCardFull candidate={candidate} />
-                </Stack>
-                )}
+            {loading ? (
+              <CircularProgress size={80} />
+            ) : (
+              <Stack width='100%' gap={3}>
+                <CandidateCardFull candidate={candidate} />
+              </Stack>
+            )}
           </Stack>
         </Container>
       </Box>

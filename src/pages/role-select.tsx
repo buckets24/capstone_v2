@@ -85,21 +85,11 @@ export default function RoleSelectPage ({
       justifyContent='center'
       alignItems='center'
     >
-      <Box
-        width='40%'
-        height='300px'
-      >
-        <Stack
-          width='100%'
-          alignItems='center'
-        >
+      <Box width='40%' height='300px'>
+        <Stack width='100%' alignItems='center'>
           <h1>Role Select</h1>
         </Stack>
-        <Stack
-          flexDirection={{ xs: 'column', sm: 'row' }}
-          gap='10px'
-          mt={3}
-        >
+        <Stack flexDirection={{ xs: 'column', sm: 'row' }} gap='10px' mt={3}>
           <Button
             disabled={submitting}
             label='Software Engineer'

@@ -18,11 +18,7 @@ const Tabs: FC<TabsProps> = ({ children }) => {
 
   return (
     <Box>
-      <StyledTabs
-        variant='scrollable'
-        value={value}
-        onChange={handleChange}
-      >
+      <StyledTabs variant='scrollable' value={value} onChange={handleChange}>
         {children}
       </StyledTabs>
     </Box>

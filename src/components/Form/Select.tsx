@@ -13,11 +13,7 @@ const FormSelect: FC<Props> = ({ children, ...props }) => {
     <Box>
       <FormControl fullWidth>
         <InputLabel size='small'>{props?.label}</InputLabel>
-        <Select
-          {...props}
-          size='small'
-          label={props?.label}
-        >
+        <Select {...props} size='small' label={props?.label}>
           {children}
         </Select>
       </FormControl>

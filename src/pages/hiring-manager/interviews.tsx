@@ -41,24 +41,13 @@ function InterviewsPage ({ userId }: Props) {
   return (
     <>
       <Header role='hiring-manager' />
-      <Box
-        display='flex'
-        alignItems='center'
-        py={10}
-        mt={2}
-      >
-        <Container
-          component='main'
-          maxWidth='md'
-        >
+      <Box display='flex' alignItems='center' py={10} mt={2}>
+        <Container component='main' maxWidth='md'>
           <Stack alignItems='center'>
             {loading ? (
               <CircularProgress size={80} />
             ) : (
-              <Stack
-                width='100%'
-                gap={3}
-              >
+              <Stack width='100%' gap={3}>
                 <Stack
                   flexDirection='row'
                   justifyContent='space-between'

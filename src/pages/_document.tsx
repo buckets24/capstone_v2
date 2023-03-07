@@ -8,10 +8,7 @@ export default class OmhDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
-          <link
-            rel='shortcut icon'
-            href='/favicon.ico'
-          />
+          <link rel='shortcut icon' href='/favicon.ico' />
         </Head>
         <body>
           <script>0</script>

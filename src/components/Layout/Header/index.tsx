@@ -17,29 +17,12 @@ function Header ({ role = 'developer' }: { role: string }) {
   return (
     <AppBar position='fixed'>
       <Toolbar>
-        <Stack
-          flexDirection='row'
-          justifyContent='space-between'
-          width='100%'
-        >
-          <Box
-            mr={2}
-            display='flex'
-            alignItems='center'
-            gap={1}
-          >
-            <Typography
-              variant='BodyText1'
-              fontWeight={700}
-              color='ink.100'
-            >
+        <Stack flexDirection='row' justifyContent='space-between' width='100%'>
+          <Box mr={2} display='flex' alignItems='center' gap={1}>
+            <Typography variant='BodyText1' fontWeight={700} color='ink.100'>
               Hiring Depot
             </Typography>
-            <Typography
-              variant='Caption1'
-              fontWeight={100}
-              color='ink.100'
-            >
+            <Typography variant='Caption1' fontWeight={100} color='ink.100'>
               {`- ${role === 'developer' ? 'Developer' : 'Hiring Manager'}`}
             </Typography>
           </Box>

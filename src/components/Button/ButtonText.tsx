@@ -25,11 +25,7 @@ const ButtonText: FC<Props> = ({
         }
       }}
     >
-      <Typography
-        fontSize='15px'
-        fontWeight='600'
-        color={color}
-      >
+      <Typography fontSize='15px' fontWeight='600' color={color}>
         {label}
       </Typography>
     </MUIButton>

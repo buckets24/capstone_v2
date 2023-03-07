@@ -49,19 +49,9 @@ function ProfileAboutFormModule ({ onClose }: ProfileAboutFormModuleProps) {
   return (
     <>
       <form>
-        <Stack
-          direction='column'
-          gap={3}
-        >
-          <Stack
-            flexDirection='row'
-            justifyContent='space-between'
-            gap={1}
-          >
-            <Box
-              flex={1}
-              width={500}
-            >
+        <Stack direction='column' gap={3}>
+          <Stack flexDirection='row' justifyContent='space-between' gap={1}>
+            <Box flex={1} width={500}>
               <FormTextField
                 name='about'
                 value={props?.values.about}

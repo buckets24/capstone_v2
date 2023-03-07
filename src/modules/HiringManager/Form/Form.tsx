@@ -97,10 +97,7 @@ function HiringManagerForm ({
   return (
     <>
       <form>
-        <Stack
-          direction='column'
-          gap={3}
-        >
+        <Stack direction='column' gap={3}>
           <Stack gap={3}>
             <Box>
               <FormTextField
@@ -180,11 +177,7 @@ function HiringManagerForm ({
             </Box>
 
             <Box>
-              <Stack
-                flexDirection='row'
-                justifyContent='space-between'
-                gap={1}
-              >
+              <Stack flexDirection='row' justifyContent='space-between' gap={1}>
                 <Box flex={1}>
                   <FormTextField
                     name='salary_min'

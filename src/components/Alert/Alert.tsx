@@ -8,10 +8,7 @@ interface AlertProps {
 
 const Alert: FC<AlertProps> = ({ text }) => {
   return (
-    <MUIAlert
-      severity='info'
-      sx={{ mt: 2, mb: 2 }}
-    >
+    <MUIAlert severity='info' sx={{ mt: 2, mb: 2 }}>
       <Body2 text={text} />
     </MUIAlert>
   )

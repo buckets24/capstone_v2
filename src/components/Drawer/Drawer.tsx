@@ -19,12 +19,7 @@ const Drawer: FC<DrawerProps> = ({ open, onClose, children }) => {
         style: { borderRadius: 8 }
       }}
     >
-      <Box
-        width='auto'
-        display='flex'
-        justifyContent='flex-end'
-        pr={2}
-      >
+      <Box width='auto' display='flex' justifyContent='flex-end' pr={2}>
         <IconButton onClick={onClose}>
           <CancelOutlinedIcon />
         </IconButton>

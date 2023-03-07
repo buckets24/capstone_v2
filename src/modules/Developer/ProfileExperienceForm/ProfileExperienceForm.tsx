@@ -136,10 +136,7 @@ function ProfileExperienceFormModule ({
   return (
     <>
       <form>
-        <Stack
-          direction='column'
-          gap={3}
-        >
+        <Stack direction='column' gap={3}>
           <Stack>
             <FormTextField
               name='company'
@@ -218,10 +215,7 @@ function ProfileExperienceFormModule ({
             />
           </Stack>
 
-          <Stack
-            flexDirection='row'
-            gap={1}
-          >
+          <Stack flexDirection='row' gap={1}>
             <FormTextField
               name='techSkill'
               value={techSkill}
@@ -230,19 +224,12 @@ function ProfileExperienceFormModule ({
               fullWidth
               label='Tech Skill'
             />
-            <IconButton
-              color='secondary'
-              onClick={() => addSkill(techSkill)}
-            >
+            <IconButton color='secondary' onClick={() => addSkill(techSkill)}>
               <AddIcon />
             </IconButton>
           </Stack>
 
-          <Stack
-            flexDirection='row'
-            flexWrap='wrap'
-            gap={1}
-          >
+          <Stack flexDirection='row' flexWrap='wrap' gap={1}>
             {techSkills?.map((skill, index) => (
               <Chip
                 key={skill}

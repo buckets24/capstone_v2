@@ -68,24 +68,13 @@ function QuestionsPage ({ userId }: Props) {
   return (
     <>
       <Header role='hiring-manager' />
-      <Box
-        display='flex'
-        alignItems='center'
-        py={10}
-        mt={2}
-      >
-        <Container
-          component='main'
-          maxWidth='md'
-        >
+      <Box display='flex' alignItems='center' py={10} mt={2}>
+        <Container component='main' maxWidth='md'>
           <Stack alignItems='center'>
             {loading ? (
               <CircularProgress size={80} />
             ) : (
-              <Stack
-                width='100%'
-                gap={3}
-              >
+              <Stack width='100%' gap={3}>
                 <Stack
                   flexDirection='row'
                   justifyContent='space-between'
@@ -106,11 +95,7 @@ function QuestionsPage ({ userId }: Props) {
                   </Box>
                 </Stack>
 
-                <Stack
-                  alignItems='center'
-                  width='100%'
-                  gap={2}
-                >
+                <Stack alignItems='center' width='100%' gap={2}>
                   {questions ? (
                     <>
                       {questions?.map((item, index) => {
@@ -148,10 +133,7 @@ function QuestionsPage ({ userId }: Props) {
                     </>
                   ) : (
                     <Paper sx={{ width: '100%' }}>
-                      <Stack
-                        alignItems='center'
-                        my={2}
-                      >
+                      <Stack alignItems='center' my={2}>
                         <Typography variant='Overline2'>
                           No Questions
                         </Typography>
@@ -164,10 +146,7 @@ function QuestionsPage ({ userId }: Props) {
           </Stack>
         </Container>
 
-        <Drawer
-          open={isDrawerActive}
-          onClose={() => setDrawer(false)}
-        >
+        <Drawer open={isDrawerActive} onClose={() => setDrawer(false)}>
           <Box width={500}>
             <QuestionForm
               questions={questions}

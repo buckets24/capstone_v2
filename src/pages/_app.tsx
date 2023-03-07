@@ -69,10 +69,7 @@ const OmhApp = (props: AppLayoutProps) => {
           </SessionContextProvider>
         </ThemeProvider>
       </CacheProvider>
-      <ReactQueryDevtools
-        position='bottom-right'
-        initialIsOpen={false}
-      />
+      <ReactQueryDevtools position='bottom-right' initialIsOpen={false} />
     </QueryClientProvider>
   )
 }

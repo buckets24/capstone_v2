@@ -69,102 +69,74 @@ function JobsPage ({ userId }: Props) {
   return (
     <>
       <Header role='hiring-manager' />
-      <Box
-        display='flex'
-        alignItems='center'
-        py={10}
-        mt={2}
-      >
-        <Container
-          component='main'
-          maxWidth='md'
-        >
+      <Box display='flex' alignItems='center' py={10} mt={2}>
+        <Container component='main' maxWidth='md'>
           <Stack alignItems='center'>
-            {loading
-              ? (
-                <CircularProgress size={80} />
-                )
-              : (
+            {loading ? (
+              <CircularProgress size={80} />
+            ) : (
+              <Stack width='100%' gap={3}>
                 <Stack
-                  width='100%'
-                  gap={3}
+                  flexDirection='row'
+                  justifyContent='space-between'
+                  alignItems='center'
                 >
-                  <Stack
-                    flexDirection='row'
-                    justifyContent='space-between'
-                    alignItems='center'
-                  >
-                    <HiringManagerNav activeRoute={router?.pathname} />
-                    <Box>
-                      <Button
-                        color='primary'
-                        labelColor='primary'
-                        variant='text'
-                        label='Add Job'
-                        startIcon={<AddCircleRounded />}
-                        onClick={() => {
-                          setJob(null)
-                          setDrawer(true)
-                        }}
-                      />
-                    </Box>
-                  </Stack>
-
-                  <Stack
-                    alignItems='center'
-                    width='100%'
-                    gap={2}
-                  >
-                    {jobs
-                      ? (
-                        <>
-                          {jobs?.map((job, index) => {
-                            return (
-                              <Paper
-                  key={index}
-                  sx={{ width: '100%' }}
-                >
-                  <JobCard job={job}>
-                                <Button
-                                  label='Edit'
-                                  variant='text'
-                                  labelColor='primary'
-                                  color='primary'
-                                  startIcon={<EditIcon />}
-                                  onClick={() => {
-                                    setJob(jobs[index])
-                                    setCurrentIndex(index)
-                                    setDrawer(true)
-                                  }}
-                                />
-                              </JobCard>
-                </Paper>
-                            )
-                          })}
-                        </>
-                        )
-                      : (
-                        <Paper sx={{ width: '100%' }}>
-                          <Stack
-                            alignItems='center'
-                            my={2}
-                          >
-                            <Typography variant='Overline2'>
-                              No Job posting.
-                          </Typography>
-                          </Stack>
-                        </Paper>
-                        )}
-                  </Stack>
+                  <HiringManagerNav activeRoute={router?.pathname} />
+                  <Box>
+                    <Button
+                      color='primary'
+                      labelColor='primary'
+                      variant='text'
+                      label='Add Job'
+                      startIcon={<AddCircleRounded />}
+                      onClick={() => {
+                        setJob(null)
+                        setDrawer(true)
+                      }}
+                    />
+                  </Box>
                 </Stack>
-                )}
+
+                <Stack alignItems='center' width='100%' gap={2}>
+                  {jobs ? (
+                    <>
+                      {jobs?.map((job, index) => {
+                        return (
+                          <Paper key={index} sx={{ width: '100%' }}>
+                            <JobCard job={job}>
+                              <Button
+                                label='Edit'
+                                variant='text'
+                                labelColor='primary'
+                                color='primary'
+                                startIcon={<EditIcon />}
+                                onClick={() => {
+                                  setJob(jobs[index])
+                                  setCurrentIndex(index)
+                                  setDrawer(true)
+                                }}
+                              />
+                            </JobCard>
+                          </Paper>
+                        )
+                      })}
+                    </>
+                  ) : (
+                    <Paper sx={{ width: '100%' }}>
+                      <Stack alignItems='center' my={2}>
+                        <Typography variant='Overline2'>
+                          No Job posting.
+                        </Typography>
+                      </Stack>
+                    </Paper>
+                  )}
+                </Stack>
+              </Stack>
+            )}
           </Stack>
         </Container>
 
-        <Drawer
-          open={isDrawerActive}
-          onClose={() => setDrawer(false)}
-        >
+        <Drawer open={isDrawerActive} onClose={() => setDrawer(false)}>
           <Box width={500}>
             <HiringManagerForm
               currentIndex={currentIndex}

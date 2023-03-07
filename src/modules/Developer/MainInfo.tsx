@@ -40,228 +40,168 @@ function DeveloperMainInfo ({ user }: DeveloperWorkingExperienceProps) {
 
   return (
     <Paper sx={{ overflow: 'hidden', px: 2 }}>
-      {candidate?.first_name
-        ? (
-          <>
-            <Stack
-              flexDirection='row'
-              justifyContent='space-between'
-              alignItems='center'
-            >
-              <Box>
-                <Stack
-                  flexDirection='row'
-                  alignItems='center'
-                  gap={1}
-                >
+      {candidate?.first_name ? (
+        <>
+          <Stack
+            flexDirection='row'
+            justifyContent='space-between'
+            alignItems='center'
+          >
+            <Box>
+              <Stack flexDirection='row' alignItems='center' gap={1}>
+                {candidate?.actively_looking ? (
+                  <VerifiedSharpIcon color='primary' fontSize='small' />
+                ) : (
+                  <PauseCircleFilledSharpIcon
+                    color='secondary'
+                    fontSize='small'
+                  />
+                )}
+                <Typography variant='caption' color='ink.500' fontWeight={600}>
                   {candidate?.actively_looking
-                    ? (
-                      <VerifiedSharpIcon
-                        color='primary'
-                        fontSize='small'
-                      />
-                      )
-                    : (
-                      <PauseCircleFilledSharpIcon
-                        color='secondary'
-                        fontSize='small'
-                      />
-                      )}
+                    ? 'Actively looking'
+                    : 'Not looking'}
+                </Typography>
+              </Stack>
+              {candidate?.expected_salary ? (
+                <Stack>
                   <Typography
                     variant='caption'
                     color='ink.500'
                     fontWeight={600}
-                  >
-                    {candidate?.actively_looking
-                      ? 'Actively looking'
-                      : 'Not looking'}
-                  </Typography>
-                </Stack>
-                {candidate?.expected_salary
-                  ? (
-                    <Stack>
-                      <Typography
-                        variant='caption'
-                        color='ink.500'
-                        fontWeight={600}
-                        textTransform='capitalize'
-                      >
-                      Expected Salary: {`${candidate?.expected_salary} USD`}
-                      </Typography>
-                    </Stack>
-                    )
-                  : null}
-              </Box>
-              <Box my={2}>
-                <Button
-                  label='Edit'
-                  onClick={() => {
-                    setDrawer(true)
-                  }}
-                  color='primary'
-                  variant='outlined'
-                  labelColor='primary'
-                  startIcon={<EditIcon />}
-                />
-              </Box>
-            </Stack>
-            <Stack flexDirection='row'>
-              <Stack
-                alignItems='center'
-                flex={1}
-                p={3}
-                gap={1}
-              >
-                <Box pb={3}>
-                  <AvatarImage
-                    alt='Remy Sharp'
-                    src='https://picsum.photos/seed/picsum/200/300'
-                  />
-                </Box>
-
-                <Stack
-                  flexDirection='column'
-                  alignItems='center'
-                >
-                  <Typography
-                    variant='h4'
-                    fontWeight={600}
-                    textTransform='uppercase'
-                  >
-                    {`${candidate?.first_name} ${candidate?.last_name}`}
-                  </Typography>
-                  <Typography
-                    variant='subtitle1'
-                    color='ink.500'
-                    fontWeight={600}
                     textTransform='capitalize'
                   >
-                    {candidate?.job_title}
+                    Expected Salary: {`${candidate?.expected_salary} USD`}
                   </Typography>
                 </Stack>
-
-                <Stack
-                  flexDirection={{ xs: 'column', md: 'row' }}
-                  gap={2}
-                >
-                  <Stack
-                    flexDirection='row'
-                    alignItems='center'
-                    gap={1}
-                  >
-                    <EmailOutlinedIcon />
-                    <Typography
-                      variant='subtitle1'
-                      color='ink.500'
-                    >
-                      {candidate?.email}
-                    </Typography>
-                  </Stack>
-
-                  <Stack
-                    flexDirection='row'
-                    alignItems='center'
-                    gap={1}
-                  >
-                    <CalendarMonthOutlinedIcon />
-                    <Typography
-                      variant='subtitle1'
-                      color='ink.500'
-                    >
-                      {candidate?.birthday ?? '-'}
-                    </Typography>
-                  </Stack>
-
-                  <Stack
-                    flexDirection='row'
-                    alignItems='center'
-                    gap={1}
-                  >
-                    <LocationOnOutlinedIcon />
-                    <Typography
-                      variant='subtitle1'
-                      color='ink.500'
-                    >
-                      {candidate?.location}
-                    </Typography>
-                  </Stack>
-                </Stack>
-
-                <Stack flexDirection='row'>
-                  {candidate?.github_link
-                    ? (
-                      <Box width={40}>
-                        <ButtonGithub
-                  component={Link}
-                  target='_blank'
-                  href={candidate?.github_link}
-                />
-                      </Box>
-                      )
-                    : null}
-                  {candidate?.linkedin_link
-                    ? (
-                      <Box width={40}>
-                        <ButtonLinkedin
-                  component={Link}
-                  target='_blank'
-                  href={candidate?.linkedin_link}
-                />
-                      </Box>
-                      )
-                    : null}
-                  {candidate?.facebook_link
-                    ? (
-                      <Box width={40}>
-                        <ButtonFacebook
-                  component={Link}
-                  target='_blank'
-                  href={candidate?.facebook_link}
-                />
-                      </Box>
-                      )
-                    : null}
-                  {candidate?.twitter_link
-                    ? (
-                      <Box width={40}>
-                        <ButtonTwitter
-                  component={Link}
-                  target='_blank'
-                  href={candidate?.twitter_link}
-                />
-                      </Box>
-                      )
-                    : null}
-                </Stack>
-              </Stack>
-
-              <Drawer
-                open={isDrawerActive}
-                onClose={() => setDrawer(false)}
-              >
-                <Box>
-                  <ProfileFormModule onClose={() => setDrawer(false)} />
-                </Box>
-              </Drawer>
-            </Stack>
-          </>
-          )
-        : (
-          <Stack alignItems='center'>
+              ) : null}
+            </Box>
             <Box my={2}>
               <Button
-                label='Add your main information'
+                label='Edit'
                 onClick={() => {
                   setDrawer(true)
                 }}
                 color='primary'
                 variant='outlined'
                 labelColor='primary'
-                startIcon={<AddIcon />}
+                startIcon={<EditIcon />}
               />
             </Box>
           </Stack>
-          )}
+          <Stack flexDirection='row'>
+            <Stack alignItems='center' flex={1} p={3} gap={1}>
+              <Box pb={3}>
+                <AvatarImage
+                  alt='Remy Sharp'
+                  src='https://picsum.photos/seed/picsum/200/300'
+                />
+              </Box>
+
+              <Stack flexDirection='column' alignItems='center'>
+                <Typography
+                  variant='h4'
+                  fontWeight={600}
+                  textTransform='uppercase'
+                >
+                  {`${candidate?.first_name} ${candidate?.last_name}`}
+                </Typography>
+                <Typography
+                  variant='subtitle1'
+                  color='ink.500'
+                  fontWeight={600}
+                  textTransform='capitalize'
+                >
+                  {candidate?.job_title}
+                </Typography>
+              </Stack>
+
+              <Stack flexDirection={{ xs: 'column', md: 'row' }} gap={2}>
+                <Stack flexDirection='row' alignItems='center' gap={1}>
+                  <EmailOutlinedIcon />
+                  <Typography variant='subtitle1' color='ink.500'>
+                    {candidate?.email}
+                  </Typography>
+                </Stack>
+
+                <Stack flexDirection='row' alignItems='center' gap={1}>
+                  <CalendarMonthOutlinedIcon />
+                  <Typography variant='subtitle1' color='ink.500'>
+                    {candidate?.birthday ?? '-'}
+                  </Typography>
+                </Stack>
+
+                <Stack flexDirection='row' alignItems='center' gap={1}>
+                  <LocationOnOutlinedIcon />
+                  <Typography variant='subtitle1' color='ink.500'>
+                    {candidate?.location}
+                  </Typography>
+                </Stack>
+              </Stack>
+
+              <Stack flexDirection='row'>
+                {candidate?.github_link ? (
+                  <Box width={40}>
+                    <ButtonGithub
+                      component={Link}
+                      target='_blank'
+                      href={candidate?.github_link}
+                    />
+                  </Box>
+                ) : null}
+                {candidate?.linkedin_link ? (
+                  <Box width={40}>
+                    <ButtonLinkedin
+                      component={Link}
+                      target='_blank'
+                      href={candidate?.linkedin_link}
+                    />
+                  </Box>
+                ) : null}
+                {candidate?.facebook_link ? (
+                  <Box width={40}>
+                    <ButtonFacebook
+                      component={Link}
+                      target='_blank'
+                      href={candidate?.facebook_link}
+                    />
+                  </Box>
+                ) : null}
+                {candidate?.twitter_link ? (
+                  <Box width={40}>
+                    <ButtonTwitter
+                      component={Link}
+                      target='_blank'
+                      href={candidate?.twitter_link}
+                    />
+                  </Box>
+                ) : null}
+              </Stack>
+            </Stack>
+
+            <Drawer open={isDrawerActive} onClose={() => setDrawer(false)}>
+              <Box>
+                <ProfileFormModule onClose={() => setDrawer(false)} />
+              </Box>
+            </Drawer>
+          </Stack>
+        </>
+      ) : (
+        <Stack alignItems='center'>
+          <Box my={2}>
+            <Button
+              label='Add your main information'
+              onClick={() => {
+                setDrawer(true)
+              }}
+              color='primary'
+              variant='outlined'
+              labelColor='primary'
+              startIcon={<AddIcon />}
+            />
+          </Box>
+        </Stack>
+      )}
     </Paper>
   )
 }

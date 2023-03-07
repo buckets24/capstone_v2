@@ -11,11 +11,7 @@ function JobCard ({ job, children }: JobCardProps) {
   return (
     <Box width='100%'>
       <Paper>
-        <Stack
-          py={1}
-          px={3}
-          gap={0.5}
-        >
+        <Stack py={1} px={3} gap={0.5}>
           <Stack
             flexDirection='column'
             gap={1}
@@ -27,10 +23,7 @@ function JobCard ({ job, children }: JobCardProps) {
               justifyContent='space-between'
             >
               <Stack flex={1}>
-                <Typography
-                  variant='h6'
-                  fontWeight={600}
-                >
+                <Typography variant='h6' fontWeight={600}>
                   {job?.title}
                 </Typography>
                 <Typography variant='Caption2'>
@@ -39,20 +32,14 @@ function JobCard ({ job, children }: JobCardProps) {
                 </Typography>
               </Stack>
               <Stack>
-                <Typography
-                  variant='Caption2'
-                  fontWeight={600}
-                >
+                <Typography variant='Caption2' fontWeight={600}>
                   {job?.status.toString().toUpperCase()}
                 </Typography>
               </Stack>
             </Stack>
 
             <Stack>
-              <Typography
-                variant='Caption2'
-                lineHeight={1.5}
-              >
+              <Typography variant='Caption2' lineHeight={1.5}>
                 {job?.description}
               </Typography>
             </Stack>
@@ -60,32 +47,17 @@ function JobCard ({ job, children }: JobCardProps) {
             <Divider />
 
             <Stack pb={1}>
-              <Typography
-                variant='Caption2'
-                lineHeight={1.5}
-              >
+              <Typography variant='Caption2' lineHeight={1.5}>
                 {job?.requirements}
               </Typography>
             </Stack>
           </Stack>
 
           <Divider />
-          <Stack
-            flexDirection='row'
-            gap={1}
-            justifyContent='space-between'
-          >
-            <Stack
-              flexDirection='row'
-              alignItems='center'
-              gap={1}
-            >
+          <Stack flexDirection='row' gap={1} justifyContent='space-between'>
+            <Stack flexDirection='row' alignItems='center' gap={1}>
               <Stack flexDirection='row'>
-                <Typography
-                  variant='caption'
-                  color='ink.500'
-                  fontWeight={600}
-                >
+                <Typography variant='caption' color='ink.500' fontWeight={600}>
                   Salary: {job?.salary_min} - {job?.salary_max} USD
                 </Typography>
               </Stack>

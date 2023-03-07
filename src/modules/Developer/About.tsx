@@ -29,74 +29,64 @@ function DeveloperAboutInfo ({ user }: DeveloperMainInfoProps) {
 
   return (
     <Paper sx={{ overflow: 'hidden', px: 4 }}>
-      {!candidate?.about
-        ? (
-          <Stack alignItems='center'>
+      {!candidate?.about ? (
+        <Stack alignItems='center'>
+          <Box my={2}>
+            <Button
+              label='Add something about you'
+              onClick={() => {
+                setDrawer(true)
+              }}
+              color='primary'
+              variant='outlined'
+              labelColor='primary'
+              startIcon={<AddIcon />}
+            />
+          </Box>
+        </Stack>
+      ) : (
+        <>
+          <Stack alignItems='flex-end'>
             <Box my={2}>
               <Button
-                label='Add something about you'
+                label='Edit'
                 onClick={() => {
                   setDrawer(true)
                 }}
                 color='primary'
                 variant='outlined'
                 labelColor='primary'
-                startIcon={<AddIcon />}
+                startIcon={<EditIcon />}
               />
             </Box>
           </Stack>
-          )
-        : (
-          <>
-            <Stack alignItems='flex-end'>
-              <Box my={2}>
-                <Button
-                  label='Edit'
-                  onClick={() => {
-                    setDrawer(true)
-                  }}
-                  color='primary'
-                  variant='outlined'
-                  labelColor='primary'
-                  startIcon={<EditIcon />}
-                />
-              </Box>
-            </Stack>
-            <Stack
-              flexDirection='column'
-              alignItems='center'
-              p={3}
-              gap={3}
+          <Stack flexDirection='column' alignItems='center' p={3} gap={3}>
+            <Typography
+              variant='h6'
+              fontWeight={600}
+              textTransform='uppercase'
+              sx={{
+                borderBottom: '1px solid'
+              }}
             >
+              About Me
+            </Typography>
+
+            <Stack>
               <Typography
-                variant='h6'
-                fontWeight={600}
-                textTransform='uppercase'
-                sx={{
-                  borderBottom: '1px solid'
-                }}
+                variant='subtitle2'
+                color='ink.500'
+                fontWeight={300}
+                textTransform='capitalize'
               >
-                About Me
+                {candidate?.about}
               </Typography>
-
-              <Stack>
-                <Typography
-                  variant='subtitle2'
-                  color='ink.500'
-                  fontWeight={300}
-                  textTransform='capitalize'
-                >
-                  {candidate?.about}
-                </Typography>
-              </Stack>
             </Stack>
-          </>
-          )}
+          </Stack>
+        </>
+      )}
 
-      <Drawer
-        open={isDrawerActive}
-        onClose={() => setDrawer(false)}
-      >
+      <Drawer open={isDrawerActive} onClose={() => setDrawer(false)}>
         <Box>
           <ProfileAboutFormModule onClose={() => setDrawer(false)} />
         </Box>

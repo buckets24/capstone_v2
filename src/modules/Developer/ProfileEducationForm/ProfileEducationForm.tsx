@@ -125,10 +125,7 @@ function ProfileEducationFormModule ({
   return (
     <>
       <form>
-        <Stack
-          direction='column'
-          gap={3}
-        >
+        <Stack direction='column' gap={3}>
           <Stack>
             <FormTextField
               name='school'
@@ -196,10 +193,7 @@ function ProfileEducationFormModule ({
             />
           </Stack>
 
-          <Stack
-            flexDirection='row'
-            gap={1}
-          >
+          <Stack flexDirection='row' gap={1}>
             <FormTextField
               name='award'
               value={award}
@@ -208,19 +202,12 @@ function ProfileEducationFormModule ({
               fullWidth
               label='Award'
             />
-            <IconButton
-              color='secondary'
-              onClick={() => addAward(award)}
-            >
+            <IconButton color='secondary' onClick={() => addAward(award)}>
               <AddIcon />
             </IconButton>
           </Stack>
 
-          <Stack
-            flexDirection='row'
-            flexWrap='wrap'
-            gap={1}
-          >
+          <Stack flexDirection='row' flexWrap='wrap' gap={1}>
             {awards?.map((award, index) => (
               <Chip
                 key={award}

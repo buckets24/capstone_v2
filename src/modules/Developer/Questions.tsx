@@ -105,12 +105,7 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
   return (
     <Paper sx={{ overflow: 'hidden', px: 4 }}>
       <Box mb={5}>
-        <Stack
-          flexDirection='column'
-          alignItems='center'
-          p={3}
-          gap={3}
-        >
+        <Stack flexDirection='column' alignItems='center' p={3} gap={3}>
           <Typography
             variant='h6'
             fontWeight={600}
@@ -121,43 +116,38 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
           >
             Interview Questions
           </Typography>
-          {loading
-            ? (
-              <CircularProgress size={50} />
-              )
-            : (
-              <Stack width='100%'>
-                {questions?.map((item, index) => {
-                  return (
-                    <Accordion
-                      key={item?.question}
-                      expanded={expanded === index}
-                      onChange={() =>
-                        setExpanded(expanded === index ? null : index)}
-                    >
-                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <Typography>{item?.question}</Typography>
-                      </AccordionSummary>
+          {loading ? (
+            <CircularProgress size={50} />
+          ) : (
+            <Stack width='100%'>
+              {questions?.map((item, index) => {
+                return (
+                  <Accordion
+                    key={item?.question}
+                    expanded={expanded === index}
+                    onChange={() =>
+                      setExpanded(expanded === index ? null : index)}
+                  >
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      <Typography>{item?.question}</Typography>
+                    </AccordionSummary>
 
-                      <AccordionDetails>
-                        <FormTextField
-                          rows={10}
-                          multiline
-                          value={item?.answer}
-                          fullWidth
-                          onChange={updateAnswer(index)}
-                        />
-                      </AccordionDetails>
-                    </Accordion>
-                  )
-                })}
-              </Stack>
-              )}
+                    <AccordionDetails>
+                      <FormTextField
+                        rows={10}
+                        multiline
+                        value={item?.answer}
+                        fullWidth
+                        onChange={updateAnswer(index)}
+                      />
+                    </AccordionDetails>
+                  </Accordion>
+                )
+              })}
+            </Stack>
+          )}
         </Stack>
-        <Stack
-          px={3}
-          alignItems='flex-end'
-        >
+        <Stack px={3} alignItems='flex-end'>
           <Box width='auto'>
             <Button
               disabled={submitting}

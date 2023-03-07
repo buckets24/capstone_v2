@@ -10,10 +10,7 @@ interface ModalProps {
 
 const ModalPopup: FC<ModalProps> = ({ open, onClose, children }) => {
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-    >
+    <Modal open={open} onClose={onClose}>
       <Box sx={ModalBoxStyle}>{children}</Box>
     </Modal>
   )

@@ -65,20 +65,14 @@ const Home = () => {
         justifyContent='center'
         alignItems='center'
       >
-        <Stack
-          width='100%'
-          alignItems='center'
-          pb={2}
-        >
+        <Stack width='100%' alignItems='center' pb={2}>
           <h1>Hiring Depot</h1>
         </Stack>
-        {isLoading || submitting
-          ? (
-            <CircularProgress size={80} />
-            )
-          : (
-            <LoginModule />
-            )}
+        {isLoading || submitting ? (
+          <CircularProgress size={80} />
+        ) : (
+          <LoginModule />
+        )}
       </Box>
     </Stack>
   )
