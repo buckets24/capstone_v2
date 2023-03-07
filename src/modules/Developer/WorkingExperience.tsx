@@ -47,7 +47,7 @@ function DeveloperWorkingExperience ({ user }: DeveloperWorkingExperienceProps) 
     setSubmitting(true)
 
     const { data, error } = await supabaseClient
-      .from('developers')
+      .from('users')
       .update([
         {
           ...candidate,

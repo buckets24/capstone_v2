@@ -24,7 +24,7 @@ function Developer ({ userId }: Props) {
   const getUsers = async () => {
     setLoading(true)
 
-    const { data } = await supabaseClient.from('developers').select('*')
+    const { data } = await supabaseClient.from('users').select('*')
 
     setLoading(false)
 

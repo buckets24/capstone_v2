@@ -26,7 +26,7 @@ function ProfileAboutFormModule ({ onClose }: ProfileAboutFormModuleProps) {
     validationSchema: profileAboutSchema,
     onSubmit: async (values: FormikValues) => {
       const { data, error } = await supabaseClient
-        .from('developers')
+        .from('users')
         .update([
           {
             ...candidate,

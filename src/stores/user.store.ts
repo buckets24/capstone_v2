@@ -20,24 +20,6 @@ const useUserStore = create<UserStoreType>()(
         candidate: null,
         setCandidate: (candidate: CandidateType) => set({ candidate }),
         setSubmitting: (submitting: boolean) => set({ submitting }),
-        // createCandidate: async (supabase: SupabaseClient, params: FormikValues) => {
-        //   const currentCandidate = get().candidate
-        //   console.log(get()?.candidate?.email, 'get()?.candidate?.email')
-        //   console.log(currentCandidate?.email)
-        //   await supabase
-        //     .from('developers')
-        //     .update([
-        //       {
-        //         ...currentCandidate,
-        //         ...params
-        //       }
-        //     ])
-        //     .eq('email', get()?.candidate?.email)
-        //     .then(({ data }) => {
-        //       console.log(data)
-        //       return set({ candidate: data?.[0] })
-        //     })
-        // },
         updateCandidate: async (
           supabase: SupabaseClient,
           params: FormikValues
@@ -48,7 +30,7 @@ const useUserStore = create<UserStoreType>()(
           get()?.setSubmitting(true)
 
           await supabase
-            .from('developers')
+            .from('users')
             .update([
               {
                 ...currentCandidate,

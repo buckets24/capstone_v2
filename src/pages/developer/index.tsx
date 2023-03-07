@@ -24,7 +24,7 @@ function Developer ({ userId }: Props) {
 
   const getUser = async () => {
     const { data } = await supabaseClient
-      .from('developers')
+      .from('users')
       .select('*')
       .eq('userId', userId)
     if (data) {

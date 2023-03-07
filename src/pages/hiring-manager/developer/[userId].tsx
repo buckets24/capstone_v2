@@ -27,7 +27,7 @@ function Developer ({ userId }: Props) {
     setLoading(true)
 
     const { data } = await supabaseClient
-      .from('developers')
+      .from('users')
       .select('*')
       .eq('userId', userId)
 

@@ -21,7 +21,6 @@ function LoginModule () {
     })
 
     if (!error) {
-      console.log('link sent')
       setLinkSent(true)
     }
 

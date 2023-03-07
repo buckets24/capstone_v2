@@ -28,7 +28,6 @@ function InterviewsPage ({ userId }: Props) {
     const { data } = await supabaseClient.from('jobs').select('*')
 
     setLoading(false)
-    console.log(jobs)
     setJobs(data as unknown as CandidateType[])
   }
 
@@ -64,21 +63,6 @@ function InterviewsPage ({ userId }: Props) {
                     />
                   </Box>
                 </Stack>
-                {/* {candidates?.map((candidate, index) => {
-                    if (candidate?.first_name === null) {
-                      return null
-                    }
-
-                    return (
-                      <Box
-                        key={index}
-                        onClick={() => navigate(`/hiring-manager/developer/${candidate?.userId}`)}
-                        sx={{ cursor: 'pointer' }}
-                      >
-                        <CandidateCard candidate={candidate} />
-                      </Box>
-                    )
-                  })} */}
               </Stack>
             )}
           </Stack>

@@ -19,7 +19,7 @@ const Home = () => {
     setSubmitting(true)
 
     const { data } = await supabaseClient
-      .from('developers')
+      .from('users')
       .select('*')
       .eq('email', user?.email)
 

@@ -23,15 +23,13 @@ export default function RoleSelectPage ({
 
   const hasRecords = candidate !== null
 
-  console.log(hasRecords, 'candidate')
-
   const notifySuccess = () =>
     toast.success('Successfully update your experience.')
   const notifyError = () => toast.success('Error updating the your experience.')
 
   const updateRole = async (role: string) => {
     const { data, error } = await supabaseClient
-      .from('developers')
+      .from('users')
       .update([
         {
           ...candidate,
@@ -53,10 +51,14 @@ export default function RoleSelectPage ({
   }
 
   const createUser = async (role: string) => {
-    console.log(candidate, userEmail)
+    if (role === 'developer') {
+      console.log('test')
+    } else {
+      console.log('test123')
+    }
 
     const { data, error } = await supabaseClient
-      .from('developers')
+      .from('users')
       .insert([
         {
           role,

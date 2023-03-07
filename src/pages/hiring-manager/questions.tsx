@@ -58,8 +58,6 @@ function QuestionsPage ({ userId }: Props) {
   }, [userId])
 
   useEffect(() => {
-    console.log(isSucess, 'isSucess')
-
     if (isSucess) {
       getQuestions()
     }

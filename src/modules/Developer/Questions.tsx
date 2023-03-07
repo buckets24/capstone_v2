@@ -39,8 +39,6 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
 
     const { data } = await supabaseClient.from('questions').select('*')
 
-    console.log(data, 'data')
-
     setLoading(false)
 
     if (data?.length === 0) {
@@ -74,7 +72,7 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
     ]
 
     const { data, error } = await supabaseClient
-      .from('developers')
+      .from('users')
       .update(payload)
       .eq('email', candidate?.email)
       .select()

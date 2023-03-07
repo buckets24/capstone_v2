@@ -47,7 +47,7 @@ function DeveloperEducation ({ user }: DeveloperEducationProps) {
     setSubmitting(true)
 
     const { data, error } = await supabaseClient
-      .from('developers')
+      .from('users')
       .update([
         {
           ...candidate,

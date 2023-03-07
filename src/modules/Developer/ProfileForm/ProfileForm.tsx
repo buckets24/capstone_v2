@@ -34,7 +34,6 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
   )
 
   const handleFileAttach = async (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event?.target?.files)
     if (!event?.target?.files) return
 
     if (event.target.files.length > 0) {
@@ -42,10 +41,6 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
       setPreviewImage(src)
     }
   }
-
-  useEffect(() => {
-    console.log(submitting, 'submitting')
-  }, [submitting])
 
   const props = useFormik({
     initialValues: {
@@ -66,10 +61,8 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
     validationSchema: profileFormSchema,
     isInitialValid: true,
     onSubmit: async (values: FormikValues) => {
-      console.log(values?.birthday)
-
       const { data, error } = await supabaseClient
-        .from('developers')
+        .from('users')
         .update([
           {
             ...candidate,

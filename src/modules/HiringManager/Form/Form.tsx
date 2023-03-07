@@ -90,10 +90,6 @@ function HiringManagerForm ({
     setJob({ ...job, ...props?.values } as JobType)
   }, [props?.values])
 
-  useEffect(() => {
-    console.log(job, 'job')
-  }, [job])
-
   return (
     <>
       <form>

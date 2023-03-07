@@ -105,7 +105,7 @@ function ProfileEducationFormModule ({
       }
 
       const { data, error } = await supabaseClient
-        .from('developers')
+        .from('users')
         .update(payload)
         .eq('email', candidate?.email)
         .select()

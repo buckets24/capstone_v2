@@ -10,7 +10,7 @@ const useGetUser = async (
   }
 
   const { data } = await supabaseClient
-    .from('developers')
+    .from('users')
     .select('*')
     .eq('userId', userId)
 
