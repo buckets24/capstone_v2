@@ -11,7 +11,7 @@ import { Button } from 'components/Button/Button'
 import { FormTextField } from 'components/Form/TextField'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { toast } from 'react-toastify'
-import { DeveloperQuestionType, QuestionType } from 'types/Question.type'
+import { DeveloperQuestionType } from 'types/Question.type'
 
 interface DeveloperMainInfoProps {
   user: CandidateType | null
@@ -24,7 +24,9 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
   const router = useRouter()
   const [candidate, setCandidate] = useState<CandidateType | null>(null)
   const [expanded, setExpanded] = useState<number | null>(null)
-  const [questions, setQuestions] = useState<DeveloperQuestionType[] | null>(null)
+  const [questions, setQuestions] = useState<DeveloperQuestionType[] | null>(
+    null
+  )
   const [submitting, setSubmitting] = useState(false)
   const [loading, setLoading] = useState(false)
 

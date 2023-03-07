@@ -86,7 +86,7 @@ function DeveloperMainInfo ({ user }: DeveloperWorkingExperienceProps) {
                         fontWeight={600}
                         textTransform='capitalize'
                       >
-                        Expected Salary: {`${candidate?.expected_salary} USD`}
+                      Expected Salary: {`${candidate?.expected_salary} USD`}
                       </Typography>
                     </Stack>
                     )
@@ -192,10 +192,10 @@ function DeveloperMainInfo ({ user }: DeveloperWorkingExperienceProps) {
                     ? (
                       <Box width={40}>
                         <ButtonGithub
-                          component={Link}
-                          target='_blank'
-                          href={candidate?.github_link}
-                        />
+                  component={Link}
+                  target='_blank'
+                  href={candidate?.github_link}
+                />
                       </Box>
                       )
                     : null}
@@ -203,10 +203,10 @@ function DeveloperMainInfo ({ user }: DeveloperWorkingExperienceProps) {
                     ? (
                       <Box width={40}>
                         <ButtonLinkedin
-                          component={Link}
-                          target='_blank'
-                          href={candidate?.linkedin_link}
-                        />
+                  component={Link}
+                  target='_blank'
+                  href={candidate?.linkedin_link}
+                />
                       </Box>
                       )
                     : null}
@@ -214,10 +214,10 @@ function DeveloperMainInfo ({ user }: DeveloperWorkingExperienceProps) {
                     ? (
                       <Box width={40}>
                         <ButtonFacebook
-                          component={Link}
-                          target='_blank'
-                          href={candidate?.facebook_link}
-                        />
+                  component={Link}
+                  target='_blank'
+                  href={candidate?.facebook_link}
+                />
                       </Box>
                       )
                     : null}
@@ -225,10 +225,10 @@ function DeveloperMainInfo ({ user }: DeveloperWorkingExperienceProps) {
                     ? (
                       <Box width={40}>
                         <ButtonTwitter
-                          component={Link}
-                          target='_blank'
-                          href={candidate?.twitter_link}
-                        />
+                  component={Link}
+                  target='_blank'
+                  href={candidate?.twitter_link}
+                />
                       </Box>
                       )
                     : null}

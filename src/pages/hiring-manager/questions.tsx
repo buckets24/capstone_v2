@@ -1,5 +1,12 @@
 /* eslint-disable multiline-ternary */
-import { Box, CircularProgress, Container, Paper, Stack, Typography } from '@mui/material'
+import {
+  Box,
+  CircularProgress,
+  Container,
+  Paper,
+  Stack,
+  Typography
+} from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import { useEffect, useState } from 'react'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
@@ -104,55 +111,53 @@ function QuestionsPage ({ userId }: Props) {
                   width='100%'
                   gap={2}
                 >
-                  {questions
-                    ? (
-                      <>
-                        {questions?.map((item, index) => {
-                          return (
-                            <Paper
-                              key={index}
-                              sx={{ width: '100%', px: 3, py: 2 }}
+                  {questions ? (
+                    <>
+                      {questions?.map((item, index) => {
+                        return (
+                          <Paper
+                            key={index}
+                            sx={{ width: '100%', px: 3, py: 2 }}
+                          >
+                            <Stack
+                              flexDirection='row'
+                              alignItems='center'
+                              justifyContent='space-between'
                             >
-                              <Stack
-                                flexDirection='row'
-                                alignItems='center'
-                                justifyContent='space-between'
-                              >
-                                <Typography variant='Overline2'>
-                                  {item?.question}
-                                </Typography>
+                              <Typography variant='Overline2'>
+                                {item?.question}
+                              </Typography>
 
-                                <Box>
-                                  <Button
-                                    label='Edit'
-                                    variant='text'
-                                    labelColor='primary'
-                                    color='primary'
-                                    startIcon={<EditIcon />}
-                                    onClick={() => {
-                                      setCurrentIndex(index)
-                                      setDrawer(true)
-                                    }}
-                                  />
-                                </Box>
-                              </Stack>
-                            </Paper>
-                          )
-                        })}
-                      </>
-                      )
-                    : (
-                      <Paper sx={{ width: '100%' }}>
-                        <Stack
-                          alignItems='center'
-                          my={2}
-                        >
-                          <Typography variant='Overline2'>
-                            No Questions
-                          </Typography>
-                        </Stack>
-                      </Paper>
-                      )}
+                              <Box>
+                                <Button
+                                  label='Edit'
+                                  variant='text'
+                                  labelColor='primary'
+                                  color='primary'
+                                  startIcon={<EditIcon />}
+                                  onClick={() => {
+                                    setCurrentIndex(index)
+                                    setDrawer(true)
+                                  }}
+                                />
+                              </Box>
+                            </Stack>
+                          </Paper>
+                        )
+                      })}
+                    </>
+                  ) : (
+                    <Paper sx={{ width: '100%' }}>
+                      <Stack
+                        alignItems='center'
+                        my={2}
+                      >
+                        <Typography variant='Overline2'>
+                          No Questions
+                        </Typography>
+                      </Stack>
+                    </Paper>
+                  )}
                 </Stack>
               </Stack>
             )}

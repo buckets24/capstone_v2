@@ -15,7 +15,12 @@ interface ProfileAboutFormModuleProps {
   currentIndex: number | null
 }
 
-function QuestionForm ({ callback, onClose, questions, currentIndex }: ProfileAboutFormModuleProps) {
+function QuestionForm ({
+  callback,
+  onClose,
+  questions,
+  currentIndex
+}: ProfileAboutFormModuleProps) {
   const { supabaseClient } = useSessionContext()
 
   const [submitting, setSubmitting] = useState(false)
@@ -84,7 +89,9 @@ function QuestionForm ({ callback, onClose, questions, currentIndex }: ProfileAb
                 value={props?.values.question}
                 onBlur={props?.handleBlur}
                 onChange={props?.handleChange}
-                error={Boolean(props?.touched.question && props?.errors.question)}
+                error={Boolean(
+                  props?.touched.question && props?.errors.question
+                )}
                 fullWidth
                 multiline
                 rows={5}

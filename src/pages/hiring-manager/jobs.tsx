@@ -39,11 +39,10 @@ function JobsPage ({ userId }: Props) {
   const getJobs = async () => {
     setLoading(true)
 
-    const { data } =
-      await supabaseClient
-        .from('jobs')
-        .select('*')
-        .order('id', { ascending: false })
+    const { data } = await supabaseClient
+      .from('jobs')
+      .select('*')
+      .order('id', { ascending: false })
 
     setLoading(false)
     setSuccess(false)
@@ -122,24 +121,24 @@ function JobsPage ({ userId }: Props) {
                           {jobs?.map((job, index) => {
                             return (
                               <Paper
-                                key={index}
-                                sx={{ width: '100%' }}
-                              >
-                                <JobCard job={job}>
-                                  <Button
-                                    label='Edit'
-                                    variant='text'
-                                    labelColor='primary'
-                                    color='primary'
-                                    startIcon={<EditIcon />}
-                                    onClick={() => {
-                                      setJob(jobs[index])
-                                      setCurrentIndex(index)
-                                      setDrawer(true)
-                                    }}
-                                  />
-                                </JobCard>
-                              </Paper>
+                  key={index}
+                  sx={{ width: '100%' }}
+                >
+                  <JobCard job={job}>
+                                <Button
+                                  label='Edit'
+                                  variant='text'
+                                  labelColor='primary'
+                                  color='primary'
+                                  startIcon={<EditIcon />}
+                                  onClick={() => {
+                                    setJob(jobs[index])
+                                    setCurrentIndex(index)
+                                    setDrawer(true)
+                                  }}
+                                />
+                              </JobCard>
+                </Paper>
                             )
                           })}
                         </>
@@ -152,7 +151,7 @@ function JobsPage ({ userId }: Props) {
                           >
                             <Typography variant='Overline2'>
                               No Job posting.
-                            </Typography>
+                          </Typography>
                           </Stack>
                         </Paper>
                         )}

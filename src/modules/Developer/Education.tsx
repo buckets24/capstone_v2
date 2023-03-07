@@ -139,74 +139,74 @@ function DeveloperEducation ({ user }: DeveloperEducationProps) {
                         gap={2}
                       >
                         <Typography
-                          variant='subtitle2'
-                          color='ink.900'
-                          fontWeight={600}
-                          textTransform='capitalize'
-                        >
-                          {school?.course}
-                        </Typography>
+                  variant='subtitle2'
+                  color='ink.900'
+                  fontWeight={600}
+                  textTransform='capitalize'
+                >
+                  {school?.course}
+                </Typography>
                         <Typography
-                          variant='subtitle2'
-                          color='ink.500'
-                          fontWeight={300}
-                          textTransform='capitalize'
-                        >
-                          {school?.startDate} - {school?.endDate}
-                        </Typography>
+                  variant='subtitle2'
+                  color='ink.500'
+                  fontWeight={300}
+                  textTransform='capitalize'
+                >
+                  {school?.startDate} - {school?.endDate}
+                </Typography>
                       </Stack>
                     </Stack>
 
                     {removeIndex === index
                       ? (
                         <Stack
-                          flexDirection='row'
-                          alignItems='center'
-                          gap={1}
-                        >
-                          {submitting
-                            ? (
-                              <CircularProgress size={40} />
-                              )
-                            : (
-                              <>
-                                <Button
-                                  label='Cancel'
-                                  color='secondary'
-                                  onClick={() => setRemoveIndex(null)}
-                                />
-                                <Button
-                                  color='error'
-                                  label='Remove'
-                                  onClick={() => removeItem(index)}
-                                />
-                              </>
-                              )}
-                        </Stack>
+                  flexDirection='row'
+                  alignItems='center'
+                  gap={1}
+                >
+                  {submitting
+                          ? (
+                            <CircularProgress size={40} />
+                            )
+                          : (
+                            <>
+                              <Button
+                                label='Cancel'
+                                color='secondary'
+                                onClick={() => setRemoveIndex(null)}
+                              />
+                              <Button
+                                color='error'
+                                label='Remove'
+                                onClick={() => removeItem(index)}
+                              />
+                            </>
+                            )}
+                </Stack>
                         )
                       : (
                         <Stack
-                          flexDirection='row'
-                          alignItems='center'
-                        >
-                          <>
-                            <IconButton
-                              color='error'
-                              onClick={() => {
-                                setDrawer(true)
-                                setCurrentIndex(index)
-                              }}
-                            >
-                              <EditIcon color='success' />
-                            </IconButton>
-                            <IconButton
-                              color='error'
-                              onClick={() => setRemoveIndex(index)}
-                            >
-                              <RemoveCircleOutlineIcon />
-                            </IconButton>
-                          </>
-                        </Stack>
+                  flexDirection='row'
+                  alignItems='center'
+                >
+                  <>
+                          <IconButton
+                            color='error'
+                            onClick={() => {
+                              setDrawer(true)
+                              setCurrentIndex(index)
+                            }}
+                          >
+                            <EditIcon color='success' />
+                          </IconButton>
+                          <IconButton
+                            color='error'
+                            onClick={() => setRemoveIndex(index)}
+                          >
+                            <RemoveCircleOutlineIcon />
+                          </IconButton>
+                        </>
+                </Stack>
                         )}
                   </Stack>
 
