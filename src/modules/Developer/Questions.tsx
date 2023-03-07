@@ -44,7 +44,7 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
     if (data?.length === 0) {
       setQuestions(null)
     } else {
-      setQuestions(data)
+      setQuestions(data as unknown as DeveloperQuestionType[])
     }
   }
 
