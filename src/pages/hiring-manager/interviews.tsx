@@ -24,7 +24,7 @@ function InterviewsPage ({ userId }: Props) {
 
   const getUsers = async () => {
     setLoading(true)
-
+    console.log(jobs, 'jobs')
     const { data } = await supabaseClient.from('jobs').select('*')
 
     setLoading(false)

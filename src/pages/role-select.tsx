@@ -51,12 +51,6 @@ export default function RoleSelectPage ({
   }
 
   const createUser = async (role: string) => {
-    if (role === 'developer') {
-      console.log('test')
-    } else {
-      console.log('test123')
-    }
-
     const { data, error } = await supabaseClient
       .from('users')
       .insert([
