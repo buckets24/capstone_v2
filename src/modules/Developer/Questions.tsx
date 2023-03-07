@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from '@mui/material'
+import { Box, CircularProgress, Paper, Stack, Typography } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
@@ -11,6 +11,7 @@ import { Button } from 'components/Button/Button'
 import { FormTextField } from 'components/Form/TextField'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { toast } from 'react-toastify'
+import { DeveloperQuestionType, QuestionType } from 'types/Question.type'
 
 interface DeveloperMainInfoProps {
   user: CandidateType | null
@@ -23,14 +24,29 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
   const router = useRouter()
   const [candidate, setCandidate] = useState<CandidateType | null>(null)
   const [expanded, setExpanded] = useState<number | null>(null)
-  const [questions, setQuestions] = useState<
-    { question: string; answer: string | number | boolean }[] | null | undefined
-  >(null)
+  const [questions, setQuestions] = useState<DeveloperQuestionType[] | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const notifySuccess = () =>
     toast.success('Successfully update your experience.')
   const notifyError = () => toast.success('Error updating the your experience.')
+
+  const getQuestions = async () => {
+    setLoading(true)
+
+    const { data } = await supabaseClient.from('questions').select('*')
+
+    console.log(data, 'data')
+
+    setLoading(false)
+
+    if (data?.length === 0) {
+      setQuestions(null)
+    } else {
+      setQuestions(data)
+    }
+  }
 
   const updateAnswer =
     (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +54,7 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
 
       const newItems = questions?.map((item, i) => {
         if (index === i) {
-          return { ...item, answer: e.target.value }
+          return { question: item?.question, answer: e.target.value }
         } else {
           return item
         }
@@ -77,8 +93,12 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
 
   useEffect(() => {
     setCandidate(candidateState)
-    setQuestions(candidateState?.questions)
+    setQuestions(candidateState?.questions as DeveloperQuestionType[])
   }, [candidateState])
+
+  useEffect(() => {
+    getQuestions()
+  }, [])
 
   return (
     <Paper sx={{ overflow: 'hidden', px: 4 }}>
@@ -99,32 +119,38 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
           >
             Interview Questions
           </Typography>
-          <Stack width='100%'>
-            {questions?.map((item, index) => {
-              return (
-                <Accordion
-                  key={item?.question}
-                  expanded={expanded === index}
-                  onChange={() =>
-                    setExpanded(expanded === index ? null : index)}
-                >
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>{item?.question}</Typography>
-                  </AccordionSummary>
-
-                  <AccordionDetails>
-                    <FormTextField
-                      rows={10}
-                      multiline
-                      value={item?.answer}
-                      fullWidth
-                      onChange={updateAnswer(index)}
-                    />
-                  </AccordionDetails>
-                </Accordion>
+          {loading
+            ? (
+              <CircularProgress size={50} />
               )
-            })}
-          </Stack>
+            : (
+              <Stack width='100%'>
+                {questions?.map((item, index) => {
+                  return (
+                    <Accordion
+                      key={item?.question}
+                      expanded={expanded === index}
+                      onChange={() =>
+                        setExpanded(expanded === index ? null : index)}
+                    >
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography>{item?.question}</Typography>
+                      </AccordionSummary>
+
+                      <AccordionDetails>
+                        <FormTextField
+                          rows={10}
+                          multiline
+                          value={item?.answer}
+                          fullWidth
+                          onChange={updateAnswer(index)}
+                        />
+                      </AccordionDetails>
+                    </Accordion>
+                  )
+                })}
+              </Stack>
+              )}
         </Stack>
         <Stack
           px={3}

@@ -45,7 +45,7 @@ function HiringManagerForm ({
       const jobList = jobs
       let client = null
 
-      // setSubmitting(true)
+      setSubmitting(true)
 
       /**
        * Update

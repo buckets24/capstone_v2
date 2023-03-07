@@ -1,15 +1,18 @@
 /* eslint-disable multiline-ternary */
-import { Box, CircularProgress, Container, Stack } from '@mui/material'
+import { Box, CircularProgress, Container, Paper, Stack, Typography } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
 import { useEffect, useState } from 'react'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { GetServerSidePropsContext } from 'next'
 import { useSessionContext } from '@supabase/auth-helpers-react'
-import { CandidateType } from 'types/Candidate.type'
 import Header from 'components/Layout/Header'
 import { HiringManagerNav } from 'components/Nav/HiringManagerNav'
 import { useRouter } from 'next/router'
 import { Button } from 'components/Button/Button'
 import { AddCircleRounded } from '@mui/icons-material'
+import QuestionForm from 'modules/HiringManager/QuestionForm'
+import { Drawer } from 'components/Drawer'
+import { QuestionType } from 'types/Question.type'
 
 interface Props {
   userId: string
@@ -19,24 +22,41 @@ function QuestionsPage ({ userId }: Props) {
   const { supabaseClient } = useSessionContext()
   const router = useRouter()
 
-  const [jobs, setJobs] = useState<CandidateType[] | null>(null)
+  const [isDrawerActive, setDrawer] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null)
+  const [isSucess, setSuccess] = useState(false)
+  const [questions, setQuestions] = useState<QuestionType[] | null>(null)
   const [loading, setLoading] = useState(false)
 
-  const getUsers = async () => {
+  const getQuestions = async () => {
     setLoading(true)
 
-    const { data } = await supabaseClient.from('jobs').select('*')
+    const { data } = await supabaseClient.from('questions').select('*')
 
     setLoading(false)
-    console.log(jobs, 'jobs')
-    setJobs(data as unknown as CandidateType[])
+
+    if (data?.length === 0) {
+      setQuestions(null)
+    } else {
+      setQuestions(data as unknown as QuestionType[])
+    }
+
+    setSuccess(false)
   }
 
   useEffect(() => {
     if (userId) {
-      getUsers()
+      getQuestions()
     }
   }, [userId])
+
+  useEffect(() => {
+    console.log(isSucess, 'isSucess')
+
+    if (isSucess) {
+      getQuestions()
+    }
+  }, [isSucess])
 
   return (
     <>
@@ -72,28 +92,86 @@ function QuestionsPage ({ userId }: Props) {
                       variant='text'
                       label='Add Question'
                       startIcon={<AddCircleRounded />}
+                      onClick={() => {
+                        setDrawer(true)
+                      }}
                     />
                   </Box>
                 </Stack>
-                {/* {candidates?.map((candidate, index) => {
-                    if (candidate?.first_name === null) {
-                      return null
-                    }
 
-                    return (
-                      <Box
-                        key={index}
-                        onClick={() => navigate(`/hiring-manager/developer/${candidate?.userId}`)}
-                        sx={{ cursor: 'pointer' }}
-                      >
-                        <CandidateCard candidate={candidate} />
-                      </Box>
-                    )
-                  })} */}
+                <Stack
+                  alignItems='center'
+                  width='100%'
+                  gap={2}
+                >
+                  {questions
+                    ? (
+                      <>
+                        {questions?.map((item, index) => {
+                          return (
+                            <Paper
+                              key={index}
+                              sx={{ width: '100%', px: 3, py: 2 }}
+                            >
+                              <Stack
+                                flexDirection='row'
+                                alignItems='center'
+                                justifyContent='space-between'
+                              >
+                                <Typography variant='Overline2'>
+                                  {item?.question}
+                                </Typography>
+
+                                <Box>
+                                  <Button
+                                    label='Edit'
+                                    variant='text'
+                                    labelColor='primary'
+                                    color='primary'
+                                    startIcon={<EditIcon />}
+                                    onClick={() => {
+                                      setCurrentIndex(index)
+                                      setDrawer(true)
+                                    }}
+                                  />
+                                </Box>
+                              </Stack>
+                            </Paper>
+                          )
+                        })}
+                      </>
+                      )
+                    : (
+                      <Paper sx={{ width: '100%' }}>
+                        <Stack
+                          alignItems='center'
+                          my={2}
+                        >
+                          <Typography variant='Overline2'>
+                            No Questions
+                          </Typography>
+                        </Stack>
+                      </Paper>
+                      )}
+                </Stack>
               </Stack>
             )}
           </Stack>
         </Container>
+
+        <Drawer
+          open={isDrawerActive}
+          onClose={() => setDrawer(false)}
+        >
+          <Box width={500}>
+            <QuestionForm
+              questions={questions}
+              currentIndex={currentIndex}
+              callback={() => setSuccess(true)}
+              onClose={() => setDrawer(false)}
+            />
+          </Box>
+        </Drawer>
       </Box>
     </>
   )

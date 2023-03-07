@@ -39,7 +39,11 @@ function JobsPage ({ userId }: Props) {
   const getJobs = async () => {
     setLoading(true)
 
-    const { data } = await supabaseClient.from('jobs').select('*')
+    const { data } =
+      await supabaseClient
+        .from('jobs')
+        .select('*')
+        .order('id', { ascending: false })
 
     setLoading(false)
     setSuccess(false)
@@ -141,11 +145,16 @@ function JobsPage ({ userId }: Props) {
                         </>
                         )
                       : (
-                        <Box my={2}>
-                          <Typography variant='Overline2'>
-                            No Job Postings
-                          </Typography>
-                        </Box>
+                        <Paper sx={{ width: '100%' }}>
+                          <Stack
+                            alignItems='center'
+                            my={2}
+                          >
+                            <Typography variant='Overline2'>
+                              No Job posting.
+                            </Typography>
+                          </Stack>
+                        </Paper>
                         )}
                   </Stack>
                 </Stack>
