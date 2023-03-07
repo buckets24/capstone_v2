@@ -16,23 +16,26 @@ interface ProfileEducationFormModuleProps {
   educationIndex?: number | null
 }
 
-function ProfileEducationFormModule ({ onClose, educationIndex }: ProfileEducationFormModuleProps) {
+function ProfileEducationFormModule ({
+  onClose,
+  educationIndex
+}: ProfileEducationFormModuleProps) {
   const { supabaseClient } = useSessionContext()
   const { candidate, submitting, setSubmitting, setCandidate } = useUserStore()
 
-  const currentSchool = educationIndex !== null ? candidate?.school_info[educationIndex!] : null
+  const currentSchool =
+    educationIndex !== null ? candidate?.school_info[educationIndex!] : null
 
   const [awards, setAwards] = useState<string[]>(currentSchool?.awards || [])
   const [award, setAward] = useState<string>('')
 
-  const notifySuccess = () => toast.success('Successfully update your education profile.')
-  const notifyError = () => toast.success('Error updating the your education profile.')
+  const notifySuccess = () =>
+    toast.success('Successfully update your education profile.')
+  const notifyError = () =>
+    toast.success('Error updating the your education profile.')
 
   function addAward (award: string) {
-    setAwards([
-      ...awards,
-      award
-    ])
+    setAwards([...awards, award])
 
     setAward('')
   }
@@ -64,7 +67,8 @@ function ProfileEducationFormModule ({ onClose, educationIndex }: ProfileEducati
               {
                 ...values,
                 awards
-              }]
+              }
+            ]
           }
         ]
       }
@@ -93,14 +97,15 @@ function ProfileEducationFormModule ({ onClose, educationIndex }: ProfileEducati
                 {
                   ...values,
                   awards
-                }]
+                }
+              ]
             }
           ]
         }
       }
 
       const { data, error } = await supabaseClient
-        .from('users')
+        .from('developers')
         .update(payload)
         .eq('email', candidate?.email)
         .select()
@@ -130,9 +135,7 @@ function ProfileEducationFormModule ({ onClose, educationIndex }: ProfileEducati
               value={props?.values.school}
               onBlur={props?.handleBlur}
               onChange={props?.handleChange}
-              error={Boolean(
-                props?.touched.school && props?.errors.school
-              )}
+              error={Boolean(props?.touched.school && props?.errors.school)}
               fullWidth
               label='School'
             />
@@ -144,17 +147,13 @@ function ProfileEducationFormModule ({ onClose, educationIndex }: ProfileEducati
               value={props?.values.course}
               onBlur={props?.handleBlur}
               onChange={props?.handleChange}
-              error={Boolean(
-                props?.touched.course && props?.errors.course
-              )}
+              error={Boolean(props?.touched.course && props?.errors.course)}
               fullWidth
               label='Course'
             />
           </Stack>
 
-          <Stack
-            flexDirection='column'
-          >
+          <Stack flexDirection='column'>
             <FormTextField
               name='startDate'
               value={props?.values.startDate ?? ''}
@@ -173,9 +172,7 @@ function ProfileEducationFormModule ({ onClose, educationIndex }: ProfileEducati
                 value={props?.values.endDate ?? ''}
                 onBlur={props?.handleBlur}
                 onChange={props?.handleChange}
-                error={Boolean(
-                  props?.touched.endDate && props?.errors.endDate
-                )}
+                error={Boolean(props?.touched.endDate && props?.errors.endDate)}
                 fullWidth
                 type='date'
                 helperText='End Date'
@@ -206,7 +203,8 @@ function ProfileEducationFormModule ({ onClose, educationIndex }: ProfileEducati
             <FormTextField
               name='award'
               value={award}
-              onChange={(event: ChangeEvent<HTMLInputElement>) => setAward(event?.target?.value)}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                setAward(event?.target?.value)}
               fullWidth
               label='Award'
             />

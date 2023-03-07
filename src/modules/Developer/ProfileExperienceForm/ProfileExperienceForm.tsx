@@ -116,7 +116,7 @@ function ProfileExperienceFormModule ({
       }
 
       const { data, error } = await supabaseClient
-        .from('users')
+        .from('developers')
         .update(payload)
         .eq('email', candidate?.email)
         .select()

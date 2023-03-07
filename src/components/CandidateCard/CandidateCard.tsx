@@ -40,9 +40,7 @@ function CandidateCard ({ candidate }: CandidateCardProps) {
                 >
                   {`${candidate?.first_name}`} {`${candidate?.last_name}`}
                 </Typography>
-                <Typography
-                  variant='Caption2'
-                >
+                <Typography variant='Caption2'>
                   {candidate?.job_title}
                 </Typography>
               </Stack>
@@ -79,7 +77,8 @@ function CandidateCard ({ candidate }: CandidateCardProps) {
                     target='_blank'
                     href={candidate?.github_link}
                   />
-                </Box>)
+                </Box>
+                )
               : null}
             {candidate?.linkedin_link
               ? (
@@ -89,7 +88,8 @@ function CandidateCard ({ candidate }: CandidateCardProps) {
                     target='_blank'
                     href={candidate?.linkedin_link}
                   />
-                </Box>)
+                </Box>
+                )
               : null}
             {candidate?.facebook_link
               ? (
@@ -99,7 +99,8 @@ function CandidateCard ({ candidate }: CandidateCardProps) {
                     target='_blank'
                     href={candidate?.facebook_link}
                   />
-                </Box>)
+                </Box>
+                )
               : null}
             {candidate?.twitter_link
               ? (
@@ -109,7 +110,8 @@ function CandidateCard ({ candidate }: CandidateCardProps) {
                     target='_blank'
                     href={candidate?.twitter_link}
                   />
-                </Box>)
+                </Box>
+                )
               : null}
           </Stack>
 
@@ -190,7 +192,8 @@ function CandidateCard ({ candidate }: CandidateCardProps) {
                     <VerifiedSharpIcon
                       color='primary'
                       fontSize='small'
-                    />)
+                    />
+                    )
                   : (
                     <PauseCircleFilledSharpIcon
                       color='secondary'
@@ -202,7 +205,9 @@ function CandidateCard ({ candidate }: CandidateCardProps) {
                   color='ink.500'
                   fontWeight={600}
                 >
-                  {candidate?.actively_looking ? 'Actively looking' : 'Not looking'}
+                  {candidate?.actively_looking
+                    ? 'Actively looking'
+                    : 'Not looking'}
                 </Typography>
               </Stack>
               <Divider orientation='vertical' />
@@ -223,6 +228,4 @@ function CandidateCard ({ candidate }: CandidateCardProps) {
   )
 }
 
-export {
-  CandidateCard
-}
+export { CandidateCard }

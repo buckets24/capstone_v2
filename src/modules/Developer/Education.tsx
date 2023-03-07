@@ -1,4 +1,12 @@
-import { Box, Chip, CircularProgress, Divider, Paper, Stack, Typography } from '@mui/material'
+import {
+  Box,
+  Chip,
+  CircularProgress,
+  Divider,
+  Paper,
+  Stack,
+  Typography
+} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline'
@@ -39,11 +47,13 @@ function DeveloperEducation ({ user }: DeveloperEducationProps) {
     setSubmitting(true)
 
     const { data, error } = await supabaseClient
-      .from('users')
-      .update([{
-        ...candidate,
-        school_info: newItems?.length === 0 ? null : newItems
-      }])
+      .from('developers')
+      .update([
+        {
+          ...candidate,
+          school_info: newItems?.length === 0 ? null : newItems
+        }
+      ])
       .eq('email', candidate?.email)
       .select()
 
@@ -170,7 +180,8 @@ function DeveloperEducation ({ user }: DeveloperEducationProps) {
                                   label='Remove'
                                   onClick={() => removeItem(index)}
                                 />
-                              </>)}
+                              </>
+                              )}
                         </Stack>
                         )
                       : (

@@ -1,4 +1,12 @@
-import { Box, Chip, CircularProgress, Divider, Paper, Stack, Typography } from '@mui/material'
+import {
+  Box,
+  Chip,
+  CircularProgress,
+  Divider,
+  Paper,
+  Stack,
+  Typography
+} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline'
@@ -17,10 +25,10 @@ interface DeveloperWorkingExperienceProps {
 }
 
 function DeveloperWorkingExperience ({ user }: DeveloperWorkingExperienceProps) {
-  const [isDrawerActive, setDrawer] = useState(false)
   const candidateStore = useUserStore()
   const { supabaseClient } = useSessionContext()
 
+  const [isDrawerActive, setDrawer] = useState(false)
   const [candidate, setCandidate] = useState<CandidateType | null>(null)
   const [currentIndex, setCurrentIndex] = useState<number | null>(null)
   const [removeIndex, setRemoveIndex] = useState<number | null>(null)
@@ -39,11 +47,13 @@ function DeveloperWorkingExperience ({ user }: DeveloperWorkingExperienceProps) 
     setSubmitting(true)
 
     const { data, error } = await supabaseClient
-      .from('users')
-      .update([{
-        ...candidate,
-        working_experience: newItems?.length === 0 ? null : newItems
-      }])
+      .from('developers')
+      .update([
+        {
+          ...candidate,
+          working_experience: newItems?.length === 0 ? null : newItems
+        }
+      ])
       .eq('email', candidate?.email)
       .select()
 
@@ -201,7 +211,6 @@ function DeveloperWorkingExperience ({ user }: DeveloperWorkingExperienceProps) 
                           </>
                         </Stack>
                         )}
-
                   </Stack>
 
                   <Stack>

@@ -1,5 +1,3 @@
 import { CandidateCard } from './CandidateCard'
 
-export {
-  CandidateCard
-}
+export { CandidateCard }

@@ -23,26 +23,29 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
   const router = useRouter()
   const [candidate, setCandidate] = useState<CandidateType | null>(null)
   const [expanded, setExpanded] = useState<number | null>(null)
-  const [questions, setQuestions] = useState<{ question: string, answer: string | number | boolean }[] | null | undefined>(null)
+  const [questions, setQuestions] = useState<
+    { question: string; answer: string | number | boolean }[] | null | undefined
+  >(null)
   const [submitting, setSubmitting] = useState(false)
 
   const notifySuccess = () =>
     toast.success('Successfully update your experience.')
   const notifyError = () => toast.success('Error updating the your experience.')
 
-  const updateAnswer = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
-    if (!questions) return
+  const updateAnswer =
+    (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
+      if (!questions) return
 
-    const newItems = questions?.map((item, i) => {
-      if (index === i) {
-        return { ...item, answer: e.target.value }
-      } else {
-        return item
-      }
-    })
+      const newItems = questions?.map((item, i) => {
+        if (index === i) {
+          return { ...item, answer: e.target.value }
+        } else {
+          return item
+        }
+      })
 
-    setQuestions(newItems)
-  }
+      setQuestions(newItems)
+    }
 
   async function saveAnswers () {
     const payload = [
@@ -53,7 +56,7 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
     ]
 
     const { data, error } = await supabaseClient
-      .from('users')
+      .from('developers')
       .update(payload)
       .eq('email', candidate?.email)
       .select()
@@ -102,11 +105,10 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
                 <Accordion
                   key={item?.question}
                   expanded={expanded === index}
-                  onChange={() => setExpanded(expanded === index ? null : index)}
+                  onChange={() =>
+                    setExpanded(expanded === index ? null : index)}
                 >
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                  >
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography>{item?.question}</Typography>
                   </AccordionSummary>
 

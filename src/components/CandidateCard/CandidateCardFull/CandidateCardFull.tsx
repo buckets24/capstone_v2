@@ -1,4 +1,12 @@
-import { Box, Chip, Divider, Link, Paper, Stack, Typography } from '@mui/material'
+import {
+  Box,
+  Chip,
+  Divider,
+  Link,
+  Paper,
+  Stack,
+  Typography
+} from '@mui/material'
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined'
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
@@ -43,9 +51,7 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
                 >
                   {`${candidate?.first_name}`} {`${candidate?.last_name}`}
                 </Typography>
-                <Typography
-                  variant='Caption2'
-                >
+                <Typography variant='Caption2'>
                   {candidate?.job_title}
                 </Typography>
               </Stack>
@@ -82,7 +88,8 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
                     target='_blank'
                     href={candidate?.github_link}
                   />
-                </Box>)
+                </Box>
+                )
               : null}
             {candidate?.linkedin_link
               ? (
@@ -92,7 +99,8 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
                     target='_blank'
                     href={candidate?.linkedin_link}
                   />
-                </Box>)
+                </Box>
+                )
               : null}
             {candidate?.facebook_link
               ? (
@@ -102,7 +110,8 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
                     target='_blank'
                     href={candidate?.facebook_link}
                   />
-                </Box>)
+                </Box>
+                )
               : null}
             {candidate?.twitter_link
               ? (
@@ -112,7 +121,8 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
                     target='_blank'
                     href={candidate?.twitter_link}
                   />
-                </Box>)
+                </Box>
+                )
               : null}
           </Stack>
 
@@ -193,7 +203,8 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
                     <VerifiedSharpIcon
                       color='primary'
                       fontSize='small'
-                    />)
+                    />
+                    )
                   : (
                     <PauseCircleFilledSharpIcon
                       color='secondary'
@@ -205,7 +216,9 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
                   color='ink.500'
                   fontWeight={600}
                 >
-                  {candidate?.actively_looking ? 'Actively looking' : 'Not looking'}
+                  {candidate?.actively_looking
+                    ? 'Actively looking'
+                    : 'Not looking'}
                 </Typography>
               </Stack>
               <Divider orientation='vertical' />
@@ -232,9 +245,7 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
           {!candidate?.working_experience
             ? (
               <Box>
-                <Typography
-                  variant='Overline2'
-                >
+                <Typography variant='Overline2'>
                   Working Experience not available
                 </Typography>
               </Box>
@@ -272,29 +283,27 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
                         >
                           <Stack flex={1}>
                             <Typography
-                              variant='BodyText2'
-                              fontWeight={600}
-                            >
-                              {experience?.company}
-                            </Typography>
-                            <Typography
-                              variant='Caption2'
-                            >
-                              {experience?.position}
-                            </Typography>
+                  variant='BodyText2'
+                  fontWeight={600}
+                >
+                  {experience?.company}
+                </Typography>
+                            <Typography variant='Caption2'>
+                  {experience?.position}
+                </Typography>
                           </Stack>
 
                           <Stack>
                             <Typography
-                              variant='Caption1'
-                              fontWeight={600}
-                              textTransform='capitalize'
-                            >
-                              {experience?.startDate}{' '}
-                              {experience.isPresent
-                                ? '- Present'
-                                : `- ${experience?.endDate}`}
-                            </Typography>
+                  variant='Caption1'
+                  fontWeight={600}
+                  textTransform='capitalize'
+                >
+                  {experience?.startDate}{' '}
+                  {experience.isPresent
+                              ? '- Present'
+                              : `- ${experience?.endDate}`}
+                </Typography>
                           </Stack>
                         </Stack>
                       </Stack>
@@ -339,9 +348,7 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
           {!candidate?.school_info
             ? (
               <Box>
-                <Typography
-                  variant='Overline2'
-                >
+                <Typography variant='Overline2'>
                   Education information not available
                 </Typography>
               </Box>
@@ -379,27 +386,26 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
                         >
                           <Stack flex={1}>
                             <Typography
-                              variant='BodyText2'
-                              fontWeight={600}
-                            >
-                              {item?.school}
-                            </Typography>
-                            <Typography
-                              variant='Caption2'
-                            >
-                              {item?.course}
-                            </Typography>
+                  variant='BodyText2'
+                  fontWeight={600}
+                >
+                  {item?.school}
+                </Typography>
+                            <Typography variant='Caption2'>
+                  {item?.course}
+                </Typography>
                           </Stack>
 
                           <Stack>
                             <Typography
-                              variant='Caption1'
-                              fontWeight={600}
-                              textTransform='capitalize'
-                            >
-                              {item?.startDate}{' - '}
-                              {item.endDate}
-                            </Typography>
+                  variant='Caption1'
+                  fontWeight={600}
+                  textTransform='capitalize'
+                >
+                  {item?.startDate}
+                  {' - '}
+                  {item.endDate}
+                </Typography>
                           </Stack>
                         </Stack>
                       </Stack>
@@ -454,9 +460,7 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
           </Stack>
           {candidate?.questions?.map((item, index) => {
             return (
-              <Stack
-                key={index}
-              >
+              <Stack key={index}>
                 <Typography
                   variant='BodyText2'
                   fontWeight={600}
@@ -479,6 +483,4 @@ function CandidateCardFull ({ candidate }: CandidateCardProps) {
   )
 }
 
-export {
-  CandidateCardFull
-}
+export { CandidateCardFull }

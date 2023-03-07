@@ -1,3 +1,4 @@
+/* eslint-disable multiline-ternary */
 import { Box, CircularProgress, Container, Stack } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
@@ -5,30 +6,30 @@ import { GetServerSidePropsContext } from 'next'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { CandidateType } from 'types/Candidate.type'
 import Header from 'components/Layout/Header'
-import { navigate } from 'utils/navigate'
-import { CandidateCard } from 'components/CandidateCard'
 import { HiringManagerNav } from 'components/Nav/HiringManagerNav'
 import { useRouter } from 'next/router'
+import { Button } from 'components/Button/Button'
+import { AddCircleRounded } from '@mui/icons-material'
 
 interface Props {
   userId: string
 }
 
-function Developer ({ userId }: Props) {
+function InterviewsPage ({ userId }: Props) {
   const { supabaseClient } = useSessionContext()
   const router = useRouter()
 
-  const [candidates, setCandidates] = useState<CandidateType[] | null>(null)
+  const [jobs, setJobs] = useState<CandidateType[] | null>(null)
   const [loading, setLoading] = useState(false)
 
   const getUsers = async () => {
     setLoading(true)
 
-    const { data } = await supabaseClient.from('developers').select('*')
+    const { data } = await supabaseClient.from('jobs').select('*')
 
     setLoading(false)
-
-    setCandidates(data as unknown as CandidateType[])
+    console.log(jobs)
+    setJobs(data as unknown as CandidateType[])
   }
 
   useEffect(() => {
@@ -51,22 +52,30 @@ function Developer ({ userId }: Props) {
           maxWidth='md'
         >
           <Stack alignItems='center'>
-            {loading
-              ? (
-                <CircularProgress size={80} />
-                )
-              : (
+            {loading ? (
+              <CircularProgress size={80} />
+            ) : (
+              <Stack
+                width='100%'
+                gap={3}
+              >
                 <Stack
-                  width='100%'
-                  gap={3}
+                  flexDirection='row'
+                  justifyContent='space-between'
+                  alignItems='center'
                 >
-                  <Stack
-                    flexDirection='row'
-                    justifyContent='space-between'
-                  >
-                    <HiringManagerNav activeRoute={router?.pathname} />
-                  </Stack>
-                  {candidates?.map((candidate, index) => {
+                  <HiringManagerNav activeRoute={router?.pathname} />
+                  <Box>
+                    <Button
+                      color='primary'
+                      labelColor='primary'
+                      variant='text'
+                      label='Add Interview'
+                      startIcon={<AddCircleRounded />}
+                    />
+                  </Box>
+                </Stack>
+                {/* {candidates?.map((candidate, index) => {
                     if (candidate?.first_name === null) {
                       return null
                     }
@@ -74,18 +83,15 @@ function Developer ({ userId }: Props) {
                     return (
                       <Box
                         key={index}
-                        onClick={() =>
-                          navigate(
-                          `/hiring-manager/developer/${candidate?.userId}`
-                          )}
+                        onClick={() => navigate(`/hiring-manager/developer/${candidate?.userId}`)}
                         sx={{ cursor: 'pointer' }}
                       >
                         <CandidateCard candidate={candidate} />
                       </Box>
                     )
-                  })}
-                </Stack>
-                )}
+                  })} */}
+              </Stack>
+            )}
           </Stack>
         </Container>
       </Box>
@@ -93,7 +99,7 @@ function Developer ({ userId }: Props) {
   )
 }
 
-export default Developer
+export default InterviewsPage
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const supabase = createServerSupabaseClient(ctx)

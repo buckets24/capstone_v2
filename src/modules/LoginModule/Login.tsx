@@ -97,7 +97,8 @@ function LoginModule () {
                   color='primary'
                 />
               </Box>
-            </>)}
+            </>
+            )}
       </Stack>
     </form>
   )

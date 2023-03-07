@@ -17,7 +17,6 @@ function Header ({ role = 'developer' }: { role: string }) {
   return (
     <AppBar position='fixed'>
       <Toolbar>
-
         <Stack
           flexDirection='row'
           justifyContent='space-between'

@@ -1,4 +1,11 @@
-import { Stack, Box, MenuItem, Divider, FormControlLabel, Switch } from '@mui/material'
+import {
+  Stack,
+  Box,
+  MenuItem,
+  Divider,
+  FormControlLabel,
+  Switch
+} from '@mui/material'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { Button } from 'components/Button/Button'
 import { FormTextField } from 'components/Form/TextField'
@@ -22,7 +29,9 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
   const notifyError = () => toast.success('Error updating the profile.')
 
   const [previewImage, setPreviewImage] = useState<string | null>(null)
-  const [isActivelyLooking, setIsLooking] = useState(candidate?.actively_looking || false)
+  const [isActivelyLooking, setIsLooking] = useState(
+    candidate?.actively_looking || false
+  )
 
   const handleFileAttach = async (event: ChangeEvent<HTMLInputElement>) => {
     console.log(event?.target?.files)
@@ -60,7 +69,7 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
       console.log(values?.birthday)
 
       const { data, error } = await supabaseClient
-        .from('users')
+        .from('developers')
         .update([
           {
             ...candidate,
@@ -243,7 +252,8 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
                   props?.setFieldValue('expected_salary', value, true)
                 }}
                 error={Boolean(
-                  props?.touched.expected_salary && props?.errors.expected_salary
+                  props?.touched.expected_salary &&
+                    props?.errors.expected_salary
                 )}
                 fullWidth
                 label='Expected salary in USD'

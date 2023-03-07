@@ -10,7 +10,13 @@ import { CandidateType } from 'types/Candidate.type'
 import { developerQuestions } from 'utils/developerQuestions'
 import { navigate } from 'utils/navigate'
 
-export default function RoleSelectPage ({ userId, userEmail }: { userId: string, userEmail: string }) {
+export default function RoleSelectPage ({
+  userId,
+  userEmail
+}: {
+  userId: string
+  userEmail: string
+}) {
   const { supabaseClient } = useSessionContext()
   const { setCandidate, candidate } = useUserStore()
   const [submitting, setSubmitting] = useState(false)
@@ -25,11 +31,13 @@ export default function RoleSelectPage ({ userId, userEmail }: { userId: string,
 
   const updateRole = async (role: string) => {
     const { data, error } = await supabaseClient
-      .from('users')
-      .update([{
-        ...candidate,
-        role
-      }])
+      .from('developers')
+      .update([
+        {
+          ...candidate,
+          role
+        }
+      ])
       .eq('email', candidate?.email)
       .select()
 
@@ -48,12 +56,14 @@ export default function RoleSelectPage ({ userId, userEmail }: { userId: string,
     console.log(candidate, userEmail)
 
     const { data, error } = await supabaseClient
-      .from('users')
-      .insert([{
-        role,
-        email: userEmail,
-        questions: developerQuestions
-      }])
+      .from('developers')
+      .insert([
+        {
+          role,
+          email: userEmail,
+          questions: developerQuestions
+        }
+      ])
       .eq('email', userEmail)
       .select()
 
@@ -94,7 +104,8 @@ export default function RoleSelectPage ({ userId, userEmail }: { userId: string,
             disabled={submitting}
             label='Software Engineer'
             color='primary'
-            onClick={() => hasRecords ? updateRole('developer') : createUser('developer')}
+            onClick={() =>
+              hasRecords ? updateRole('developer') : createUser('developer')}
           />
           <Button
             disabled={submitting}
@@ -102,7 +113,10 @@ export default function RoleSelectPage ({ userId, userEmail }: { userId: string,
             color='primary'
             variant='outlined'
             labelColor='orange.main'
-            onClick={() => hasRecords ? updateRole('hiring-manager') : createUser('hiring-manager')}
+            onClick={() =>
+              hasRecords
+                ? updateRole('hiring-manager')
+                : createUser('hiring-manager')}
           />
         </Stack>
       </Box>

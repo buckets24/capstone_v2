@@ -19,7 +19,7 @@ const Home = () => {
     setSubmitting(true)
 
     const { data } = await supabaseClient
-      .from('users')
+      .from('developers')
       .select('*')
       .eq('email', user?.email)
 
@@ -72,7 +72,13 @@ const Home = () => {
         >
           <h1>Hiring Depot</h1>
         </Stack>
-        {isLoading || submitting ? <CircularProgress size={80} /> : <LoginModule />}
+        {isLoading || submitting
+          ? (
+            <CircularProgress size={80} />
+            )
+          : (
+            <LoginModule />
+            )}
       </Box>
     </Stack>
   )
