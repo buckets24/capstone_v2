@@ -11,7 +11,7 @@ interface Props {
   userId: string
 }
 
-function DeveloperQuestions({ userId }: Props) {
+function DeveloperQuestions ({ userId }: Props) {
   const { candidate } = useUserStore()
   const { navigate } = useNavigate()
 

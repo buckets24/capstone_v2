@@ -17,7 +17,7 @@ interface Props {
   userId: string
 }
 
-function Developer({ userId }: Props) {
+function Developer ({ userId }: Props) {
   const { supabaseClient } = useSessionContext()
   const [user, setUser] = useState<CandidateType | null>(null)
   const { setCandidate } = useUserStore()

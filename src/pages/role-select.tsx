@@ -10,7 +10,7 @@ import { CandidateType } from 'types/Candidate.type'
 import { developerQuestions } from 'utils/developerQuestions'
 import { useNavigate } from 'utils/navigate'
 
-export default function RoleSelectPage({
+export default function RoleSelectPage ({
   userId,
   userEmail
 }: {

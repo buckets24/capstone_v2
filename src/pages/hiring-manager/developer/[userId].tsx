@@ -15,7 +15,7 @@ interface Props {
   userId: string
 }
 
-function Developer({ userId }: Props) {
+function Developer ({ userId }: Props) {
   const router = useRouter()
 
   const { supabaseClient } = useSessionContext()

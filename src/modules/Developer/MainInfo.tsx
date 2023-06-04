@@ -23,7 +23,7 @@ interface DeveloperWorkingExperienceProps {
   user: CandidateType | null
 }
 
-function DeveloperMainInfo({ user }: DeveloperWorkingExperienceProps) {
+function DeveloperMainInfo ({ user }: DeveloperWorkingExperienceProps) {
   const [isDrawerActive, setDrawer] = useState(false)
   const router = useRouter()
   const candidateState = useUserStore((state) => state.candidate)
@@ -203,10 +203,7 @@ function DeveloperMainInfo({ user }: DeveloperWorkingExperienceProps) {
         </Stack>
       )}
 
-      <Drawer
-        open={isDrawerActive}
-        onClose={() => setDrawer(false)}
-      >
+      <Drawer open={isDrawerActive} onClose={() => setDrawer(false)}>
         <Box>
           <ProfileFormModule onClose={() => setDrawer(false)} />
         </Box>

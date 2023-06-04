@@ -6,7 +6,7 @@ interface HiringManagerNavProps {
   activeRoute: string
 }
 
-function HiringManagerNav({ activeRoute }: HiringManagerNavProps) {
+function HiringManagerNav ({ activeRoute }: HiringManagerNavProps) {
   const { navigate } = useNavigate()
   return (
     <Stack

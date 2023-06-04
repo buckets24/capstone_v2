@@ -16,7 +16,7 @@ interface ProfileEducationFormModuleProps {
   educationIndex?: number | null
 }
 
-function ProfileEducationFormModule({
+function ProfileEducationFormModule ({
   onClose,
   educationIndex
 }: ProfileEducationFormModuleProps) {
@@ -35,13 +35,13 @@ function ProfileEducationFormModule({
   const notifyError = () =>
     toast.success('Error updating the your education profile.')
 
-  function addAward(award: string) {
+  function addAward (award: string) {
     setAwards([...awards, award])
 
     setAward('')
   }
 
-  function removeAward(index: number) {
+  function removeAward (index: number) {
     setAwards(awards.splice(index, index))
   }
 

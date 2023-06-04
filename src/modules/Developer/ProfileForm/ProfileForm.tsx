@@ -20,7 +20,7 @@ interface ProfileFormModuleProps {
   onClose: () => void
 }
 
-function ProfileFormModule({ onClose }: ProfileFormModuleProps) {
+function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
   const { supabaseClient } = useSessionContext()
   const { candidate, submitting, setCandidate } = useUserStore()
   const user = useUser()
@@ -126,7 +126,7 @@ function ProfileFormModule({ onClose }: ProfileFormModuleProps) {
           <Box>
             <FormTextField
               name='birthday'
-              value={props?.values.birthday ?? ""}
+              value={props?.values.birthday ?? ''}
               onBlur={props?.handleBlur}
               onChange={props?.handleChange}
               error={Boolean(props?.touched.birthday && props?.errors.birthday)}
@@ -224,7 +224,7 @@ function ProfileFormModule({ onClose }: ProfileFormModuleProps) {
                 }}
                 error={Boolean(
                   props?.touched.expected_salary &&
-                  props?.errors.expected_salary
+                    props?.errors.expected_salary
                 )}
                 fullWidth
                 label='Expected salary in USD'

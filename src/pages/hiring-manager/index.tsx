@@ -14,13 +14,13 @@ interface Props {
   userId: string
 }
 
-function Developer({ userId }: Props) {
+function Developer ({ userId }: Props) {
   const { supabaseClient } = useSessionContext()
   const router = useRouter()
 
   const [candidates, setCandidates] = useState<CandidateType[] | null>(null)
   const [loading, setLoading] = useState(false)
-  const [queryText] = useState('')
+  // const [queryText] = useState('')
   const { navigate } = useNavigate()
 
   const getUsers = async () => {
@@ -30,10 +30,13 @@ function Developer({ userId }: Props) {
     setCandidates(data as unknown as CandidateType[])
   }
 
-  const searchUsers = async () => {
-    const { data } = await supabaseClient.from('users').select('*').textSearch('first_name', `"${queryText}"`)
-    console.log(data, 'data')
-  }
+  // const searchUsers = async () => {
+  //   const { data } = await supabaseClient
+  //     .from('users')
+  //     .select('*')
+  //     .textSearch('first_name', `"${queryText}"`)
+  //   console.log(data, 'data')
+  // }
 
   useEffect(() => {
     if (userId) {

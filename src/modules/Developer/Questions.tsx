@@ -17,7 +17,7 @@ interface DeveloperMainInfoProps {
   user: CandidateType | null
 }
 
-function DeveloperQuestionsModule({ user }: DeveloperMainInfoProps) {
+function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
   const { supabaseClient } = useSessionContext()
 
   const candidateState = useUserStore((state) => state.candidate)
@@ -65,7 +65,7 @@ function DeveloperQuestionsModule({ user }: DeveloperMainInfoProps) {
       setQuestions(newItems)
     }
 
-  async function saveAnswers() {
+  async function saveAnswers () {
     const payload = [
       {
         ...candidate,

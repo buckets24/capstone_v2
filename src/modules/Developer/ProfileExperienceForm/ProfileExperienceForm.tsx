@@ -16,7 +16,7 @@ interface ProfileExperienceFormModuleProps {
   experienceIndex?: number | null
 }
 
-function ProfileExperienceFormModule({
+function ProfileExperienceFormModule ({
   onClose,
   experienceIndex
 }: ProfileExperienceFormModuleProps) {
@@ -41,13 +41,13 @@ function ProfileExperienceFormModule({
     toast.success('Successfully update your experience.')
   const notifyError = () => toast.success('Error updating the your experience.')
 
-  function addSkill(skill: string) {
+  function addSkill (skill: string) {
     setTechSkills([...techSkills, skill])
 
     setTechSkill('')
   }
 
-  function removeSkill(index: number) {
+  function removeSkill (index: number) {
     setTechSkills(techSkills.splice(index, index))
   }
 
