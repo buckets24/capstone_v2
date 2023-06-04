@@ -1,6 +1,6 @@
 import { Box, Stack } from '@mui/material'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import { useSessionContext } from '@supabase/auth-helpers-react'
+import { useSessionContext, useUser } from '@supabase/auth-helpers-react'
 import { Button } from 'components/Button/Button'
 import { GetServerSidePropsContext } from 'next'
 import { useState } from 'react'
@@ -8,20 +8,22 @@ import { toast } from 'react-toastify'
 import { useUserStore } from 'stores/user.store'
 import { CandidateType } from 'types/Candidate.type'
 import { developerQuestions } from 'utils/developerQuestions'
-import { navigate } from 'utils/navigate'
+import { useNavigate } from 'utils/navigate'
 
-export default function RoleSelectPage ({
+export default function RoleSelectPage({
   userId,
   userEmail
 }: {
   userId: string
   userEmail: string
 }) {
+  const user = useUser()
   const { supabaseClient } = useSessionContext()
   const { setCandidate, candidate } = useUserStore()
   const [submitting, setSubmitting] = useState(false)
+  const { navigate } = useNavigate()
 
-  const hasRecords = candidate !== null
+  const hasRecords = candidate !== undefined
 
   const notifySuccess = () =>
     toast.success('Successfully update your experience.')
@@ -36,7 +38,7 @@ export default function RoleSelectPage ({
           role
         }
       ])
-      .eq('email', candidate?.email)
+      .eq('email', user?.email)
       .select()
 
     if (!error) {
@@ -56,11 +58,11 @@ export default function RoleSelectPage ({
       .insert([
         {
           role,
-          email: userEmail,
+          email: user?.email,
           questions: developerQuestions
         }
       ])
-      .eq('email', userEmail)
+      .eq('email', user?.email)
       .select()
 
     if (!error) {

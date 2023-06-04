@@ -23,7 +23,7 @@ interface DeveloperWorkingExperienceProps {
   user: CandidateType | null
 }
 
-function DeveloperMainInfo ({ user }: DeveloperWorkingExperienceProps) {
+function DeveloperMainInfo({ user }: DeveloperWorkingExperienceProps) {
   const [isDrawerActive, setDrawer] = useState(false)
   const router = useRouter()
   const candidateState = useUserStore((state) => state.candidate)
@@ -104,7 +104,7 @@ function DeveloperMainInfo ({ user }: DeveloperWorkingExperienceProps) {
                   fontWeight={600}
                   textTransform='uppercase'
                 >
-                  {`${candidate?.first_name} ${candidate?.last_name}`}
+                  {`${candidate?.first_name} ${candidate?.last_name}` ?? ''}
                 </Typography>
                 <Typography
                   variant='subtitle1'
@@ -202,6 +202,15 @@ function DeveloperMainInfo ({ user }: DeveloperWorkingExperienceProps) {
           </Box>
         </Stack>
       )}
+
+      <Drawer
+        open={isDrawerActive}
+        onClose={() => setDrawer(false)}
+      >
+        <Box>
+          <ProfileFormModule onClose={() => setDrawer(false)} />
+        </Box>
+      </Drawer>
     </Paper>
   )
 }

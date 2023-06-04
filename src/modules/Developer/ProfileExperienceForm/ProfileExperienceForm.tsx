@@ -1,6 +1,6 @@
 import { Stack, Box, FormControlLabel, Switch, Chip } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { useSessionContext } from '@supabase/auth-helpers-react'
+import { useSessionContext, useUser } from '@supabase/auth-helpers-react'
 import { Button } from 'components/Button/Button'
 import { FormTextField } from 'components/Form/TextField'
 import { FormikValues, useFormik } from 'formik'
@@ -16,11 +16,12 @@ interface ProfileExperienceFormModuleProps {
   experienceIndex?: number | null
 }
 
-function ProfileExperienceFormModule ({
+function ProfileExperienceFormModule({
   onClose,
   experienceIndex
 }: ProfileExperienceFormModuleProps) {
   const { supabaseClient } = useSessionContext()
+  const user = useUser()
   const { candidate, submitting, setSubmitting, setCandidate } = useUserStore()
 
   const currentExperience =
@@ -40,13 +41,13 @@ function ProfileExperienceFormModule ({
     toast.success('Successfully update your experience.')
   const notifyError = () => toast.success('Error updating the your experience.')
 
-  function addSkill (skill: string) {
+  function addSkill(skill: string) {
     setTechSkills([...techSkills, skill])
 
     setTechSkill('')
   }
 
-  function removeSkill (index: number) {
+  function removeSkill(index: number) {
     setTechSkills(techSkills.splice(index, index))
   }
 
@@ -118,7 +119,7 @@ function ProfileExperienceFormModule ({
       const { data, error } = await supabaseClient
         .from('users')
         .update(payload)
-        .eq('email', candidate?.email)
+        .eq('email', user?.email)
         .select()
 
       if (!error) {

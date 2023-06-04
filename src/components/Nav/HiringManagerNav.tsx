@@ -1,12 +1,13 @@
 import { Stack, Box } from '@mui/material'
 import { Button } from 'components/Button/Button'
-import { navigate } from 'utils/navigate'
+import { useNavigate } from 'utils/navigate'
 
 interface HiringManagerNavProps {
   activeRoute: string
 }
 
-function HiringManagerNav ({ activeRoute }: HiringManagerNavProps) {
+function HiringManagerNav({ activeRoute }: HiringManagerNavProps) {
+  const { navigate } = useNavigate()
   return (
     <Stack
       flexDirection='row'
@@ -51,7 +52,7 @@ function HiringManagerNav ({ activeRoute }: HiringManagerNavProps) {
           onClick={() => navigate('/hiring-manager/questions')}
         />
       </Box>
-      <Box>
+      {/* <Box>
         <Button
           color='primary'
           labelColor={
@@ -65,7 +66,7 @@ function HiringManagerNav ({ activeRoute }: HiringManagerNavProps) {
           label='Interviews'
           onClick={() => navigate('/hiring-manager/interviews')}
         />
-      </Box>
+      </Box> */}
     </Stack>
   )
 }

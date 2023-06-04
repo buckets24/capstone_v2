@@ -6,10 +6,9 @@ import {
   FormControlLabel,
   Switch
 } from '@mui/material'
-import { useSessionContext } from '@supabase/auth-helpers-react'
+import { useSessionContext, useUser } from '@supabase/auth-helpers-react'
 import { Button } from 'components/Button/Button'
 import { FormTextField } from 'components/Form/TextField'
-import { AvatarUpload } from 'components/Upload/Avatar'
 import { FormikValues, useFormik } from 'formik'
 import { ChangeEvent, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -21,26 +20,17 @@ interface ProfileFormModuleProps {
   onClose: () => void
 }
 
-function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
+function ProfileFormModule({ onClose }: ProfileFormModuleProps) {
   const { supabaseClient } = useSessionContext()
   const { candidate, submitting, setCandidate } = useUserStore()
+  const user = useUser()
 
   const notifySuccess = () => toast.success('Successfully update the profile.')
   const notifyError = () => toast.success('Error updating the profile.')
 
-  const [previewImage, setPreviewImage] = useState<string | null>(null)
   const [isActivelyLooking, setIsLooking] = useState(
     candidate?.actively_looking || false
   )
-
-  const handleFileAttach = async (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event?.target?.files) return
-
-    if (event.target.files.length > 0) {
-      const src = URL.createObjectURL(event.target.files[0])
-      setPreviewImage(src)
-    }
-  }
 
   const props = useFormik({
     initialValues: {
@@ -48,7 +38,7 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
       last_name: candidate?.last_name ?? '',
       birthday: candidate?.birthday ?? '',
       job_title: candidate?.job_title ?? '',
-      email: candidate?.email ?? '',
+      email: user?.email ?? '',
       mobile: candidate?.mobile ?? '',
       location: candidate?.location ?? '',
       github_link: candidate?.github_link ?? '',
@@ -61,7 +51,7 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
     validationSchema: profileFormSchema,
     isInitialValid: true,
     onSubmit: async (values: FormikValues) => {
-      const { data, error } = await supabaseClient
+      const client = await supabaseClient
         .from('users')
         .update([
           {
@@ -70,11 +60,13 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
             actively_looking: isActivelyLooking
           }
         ])
-        .eq('email', candidate?.email)
+        .eq('email', user?.email)
         .select()
 
-      if (!error) {
-        setCandidate(data?.[0] as unknown as CandidateType)
+      console.log(client, 'data')
+
+      if (!client.error) {
+        setCandidate(client.data?.[0] as unknown as CandidateType)
         notifySuccess()
         onClose()
       } else {
@@ -87,7 +79,7 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
     <>
       <form>
         <Stack direction='column' gap={3}>
-          <Stack justifyContent='center' alignItems='center' pb={3}>
+          {/* <Stack justifyContent='center' alignItems='center' pb={3}>
             <AvatarUpload previewImage={previewImage}>
               <input
                 id='dropzone-file'
@@ -97,7 +89,7 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
                 onChange={handleFileAttach}
               />
             </AvatarUpload>
-          </Stack>
+          </Stack> */}
 
           <Stack flexDirection='row' justifyContent='space-between' gap={1}>
             <Box flex={1}>
@@ -113,7 +105,9 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
                 label='First Name'
               />
             </Box>
+          </Stack>
 
+          <Stack flexDirection='row' justifyContent='space-between' gap={1}>
             <Box flex={1}>
               <FormTextField
                 name='last_name'
@@ -132,13 +126,16 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
           <Box>
             <FormTextField
               name='birthday'
-              value={props?.values.birthday}
+              value={props?.values.birthday ?? ""}
               onBlur={props?.handleBlur}
               onChange={props?.handleChange}
               error={Boolean(props?.touched.birthday && props?.errors.birthday)}
               fullWidth
               label='Birthday'
               type='date'
+              InputLabelProps={{
+                shrink: true
+              }}
             />
           </Box>
 
@@ -227,7 +224,7 @@ function ProfileFormModule ({ onClose }: ProfileFormModuleProps) {
                 }}
                 error={Boolean(
                   props?.touched.expected_salary &&
-                    props?.errors.expected_salary
+                  props?.errors.expected_salary
                 )}
                 fullWidth
                 label='Expected salary in USD'

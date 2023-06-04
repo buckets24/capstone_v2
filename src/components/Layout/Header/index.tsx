@@ -1,12 +1,13 @@
 import { AppBar, Box, Stack, Toolbar, Typography } from '@mui/material'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { Button } from 'components/Button/Button'
-import { navigate } from 'utils/navigate'
+import { useNavigate } from 'utils/navigate'
 
-function Header ({ role = 'developer' }: { role: string }) {
+function Header({ role = 'developer' }: { role: string }) {
   const { supabaseClient } = useSessionContext()
+  const { navigate } = useNavigate()
 
-  async function logoutUser () {
+  async function logoutUser() {
     const { error } = await supabaseClient.auth.signOut()
 
     if (!error) {

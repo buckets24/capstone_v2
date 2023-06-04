@@ -3,7 +3,7 @@ import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { GetServerSidePropsContext } from 'next'
 import Header from 'components/Layout/Header'
 import { Button } from 'components/Button/Button'
-import { navigate } from 'utils/navigate'
+import { useNavigate } from 'utils/navigate'
 import DeveloperQuestionsModule from 'modules/Developer/Questions'
 import { useUserStore } from 'stores/user.store'
 
@@ -11,8 +11,9 @@ interface Props {
   userId: string
 }
 
-function DeveloperQuestions ({ userId }: Props) {
+function DeveloperQuestions({ userId }: Props) {
   const { candidate } = useUserStore()
+  const { navigate } = useNavigate()
 
   return (
     <>

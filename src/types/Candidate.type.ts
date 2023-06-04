@@ -2,6 +2,7 @@ export interface CandidateType {
   id: number
   userId: string
   created_at: Date
+  name: string
   first_name: string
   last_name: string
   birthday: string

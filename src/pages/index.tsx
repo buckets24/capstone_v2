@@ -3,7 +3,7 @@ import { Stack } from '@mui/system'
 import { useSessionContext, useUser } from '@supabase/auth-helpers-react'
 import LoginModule from 'modules/LoginModule'
 import { useEffect, useState } from 'react'
-import { navigate } from 'utils/navigate'
+import { useNavigate } from 'utils/navigate'
 import { useUserStore } from 'stores/user.store'
 import { CandidateType } from 'types/Candidate.type'
 
@@ -12,6 +12,7 @@ const Home = () => {
   const user = useUser()
   const { supabaseClient } = useSessionContext()
   const { setCandidate } = useUserStore()
+  const { navigate } = useNavigate()
 
   const [submitting, setSubmitting] = useState(false)
 
@@ -24,16 +25,16 @@ const Home = () => {
       .eq('email', user?.email)
 
     const candidate = data?.[0] as unknown as CandidateType
-
     setCandidate(candidate)
 
-    if (!candidate?.role) {
-      navigate('/role-select')
-    } else {
+    if (candidate) {
       candidate?.role === 'developer'
         ? navigate('/developer')
         : navigate('/hiring-manager')
+      return
     }
+
+    navigate('/role-select')
   }
 
   useEffect(() => {

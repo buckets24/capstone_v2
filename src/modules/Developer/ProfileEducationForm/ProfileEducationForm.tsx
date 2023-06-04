@@ -1,6 +1,6 @@
 import { Stack, Box, Chip } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { useSessionContext } from '@supabase/auth-helpers-react'
+import { useSessionContext, useUser } from '@supabase/auth-helpers-react'
 import { Button } from 'components/Button/Button'
 import { FormTextField } from 'components/Form/TextField'
 import { FormikValues, useFormik } from 'formik'
@@ -16,12 +16,13 @@ interface ProfileEducationFormModuleProps {
   educationIndex?: number | null
 }
 
-function ProfileEducationFormModule ({
+function ProfileEducationFormModule({
   onClose,
   educationIndex
 }: ProfileEducationFormModuleProps) {
   const { supabaseClient } = useSessionContext()
   const { candidate, submitting, setSubmitting, setCandidate } = useUserStore()
+  const user = useUser()
 
   const currentSchool =
     educationIndex !== null ? candidate?.school_info[educationIndex!] : null
@@ -34,13 +35,13 @@ function ProfileEducationFormModule ({
   const notifyError = () =>
     toast.success('Error updating the your education profile.')
 
-  function addAward (award: string) {
+  function addAward(award: string) {
     setAwards([...awards, award])
 
     setAward('')
   }
 
-  function removeAward (index: number) {
+  function removeAward(index: number) {
     setAwards(awards.splice(index, index))
   }
 
@@ -107,7 +108,7 @@ function ProfileEducationFormModule ({
       const { data, error } = await supabaseClient
         .from('users')
         .update(payload)
-        .eq('email', candidate?.email)
+        .eq('email', user?.email)
         .select()
 
       if (!error) {

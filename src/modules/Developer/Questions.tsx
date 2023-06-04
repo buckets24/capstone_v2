@@ -17,7 +17,7 @@ interface DeveloperMainInfoProps {
   user: CandidateType | null
 }
 
-function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
+function DeveloperQuestionsModule({ user }: DeveloperMainInfoProps) {
   const { supabaseClient } = useSessionContext()
 
   const candidateState = useUserStore((state) => state.candidate)
@@ -29,6 +29,8 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
   )
   const [submitting, setSubmitting] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  console.log(candidateState, 'candidateState')
 
   const notifySuccess = () =>
     toast.success('Successfully update your experience.')
@@ -63,7 +65,7 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
       setQuestions(newItems)
     }
 
-  async function saveAnswers () {
+  async function saveAnswers() {
     const payload = [
       {
         ...candidate,

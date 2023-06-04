@@ -10,17 +10,18 @@ import DeveloperWorkingExperience from 'modules/Developer/WorkingExperience'
 import DeveloperEducation from 'modules/Developer/Education'
 import Header from 'components/Layout/Header'
 import { Button } from 'components/Button/Button'
-import { navigate } from 'utils/navigate'
+import { useNavigate } from 'utils/navigate'
 import { useUserStore } from 'stores/user.store'
 
 interface Props {
   userId: string
 }
 
-function Developer ({ userId }: Props) {
+function Developer({ userId }: Props) {
   const { supabaseClient } = useSessionContext()
   const [user, setUser] = useState<CandidateType | null>(null)
   const { setCandidate } = useUserStore()
+  const { navigate } = useNavigate()
 
   const getUser = async () => {
     const { data } = await supabaseClient

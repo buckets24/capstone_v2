@@ -7,7 +7,7 @@ import { useSessionContext } from '@supabase/auth-helpers-react'
 import { CandidateType } from 'types/Candidate.type'
 import Header from 'components/Layout/Header'
 import { Button } from 'components/Button/Button'
-import { navigate } from 'utils/navigate'
+import { useNavigate } from 'utils/navigate'
 import { CandidateCardFull } from 'components/CandidateCard/CandidateCardFull'
 import { useRouter } from 'next/router'
 
@@ -15,13 +15,14 @@ interface Props {
   userId: string
 }
 
-function Developer ({ userId }: Props) {
+function Developer({ userId }: Props) {
   const router = useRouter()
 
   const { supabaseClient } = useSessionContext()
 
   const [candidate, setCandidate] = useState<CandidateType | null>(null)
   const [loading, setLoading] = useState(false)
+  const { navigate } = useNavigate()
 
   const getUsers = async (userId: string) => {
     setLoading(true)
