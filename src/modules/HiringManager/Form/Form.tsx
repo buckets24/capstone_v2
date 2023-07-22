@@ -93,7 +93,7 @@ function HiringManagerForm ({
   return (
     <>
       <form>
-        <Stack direction='column' gap={3}>
+        <Stack direction='column' gap={3} p={2}>
           <Stack gap={3}>
             <Box>
               <FormTextField

@@ -1,13 +1,15 @@
 import { Stack, Box } from '@mui/material'
 import { Button } from 'components/Button/Button'
-import { useRouter } from 'next/router'
 
 interface HiringManagerNavProps {
   activeRoute: string
+  setActiveNav: (activeRoute: string) => void
 }
 
-function HiringManagerNav ({ activeRoute }: HiringManagerNavProps) {
-  const router = useRouter()
+function HiringManagerNav ({
+  activeRoute,
+  setActiveNav
+}: HiringManagerNavProps) {
   return (
     <Stack
       flexDirection='row'
@@ -18,43 +20,28 @@ function HiringManagerNav ({ activeRoute }: HiringManagerNavProps) {
       <Box>
         <Button
           color='primary'
-          labelColor={activeRoute === '/hiring-manager' ? 'inherit' : 'primary'}
-          variant={activeRoute === '/hiring-manager' ? 'contained' : 'outlined'}
+          labelColor={activeRoute === 'developers' ? 'inherit' : 'primary'}
+          variant={activeRoute === 'developers' ? 'contained' : 'outlined'}
           label='Developers'
-          onClick={() =>
-            router.push('/hiring-manager', undefined, { shallow: true })}
+          onClick={() => setActiveNav('developers')}
         />
       </Box>
       <Box>
         <Button
           color='primary'
-          labelColor={
-            activeRoute === '/hiring-manager/jobs' ? 'inherit' : 'primary'
-          }
-          variant={
-            activeRoute === '/hiring-manager/jobs' ? 'contained' : 'outlined'
-          }
+          labelColor={activeRoute === 'jobs' ? 'inherit' : 'primary'}
+          variant={activeRoute === 'jobs' ? 'contained' : 'outlined'}
           label='Jobs'
-          onClick={() =>
-            router.push('/hiring-manager/jobs', undefined, { shallow: true })}
+          onClick={() => setActiveNav('jobs')}
         />
       </Box>
       <Box>
         <Button
           color='primary'
-          labelColor={
-            activeRoute === '/hiring-manager/questions' ? 'inherit' : 'primary'
-          }
-          variant={
-            activeRoute === '/hiring-manager/questions'
-              ? 'contained'
-              : 'outlined'
-          }
+          labelColor={activeRoute === 'questions' ? 'inherit' : 'primary'}
+          variant={activeRoute === 'questions' ? 'contained' : 'outlined'}
           label='Questions'
-          onClick={() =>
-            router.push('/hiring-manager/questions', undefined, {
-              shallow: true
-            })}
+          onClick={() => setActiveNav('questions')}
         />
       </Box>
       {/* <Box>

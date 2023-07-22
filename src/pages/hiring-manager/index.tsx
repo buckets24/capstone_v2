@@ -4,11 +4,13 @@ import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { GetServerSidePropsContext } from 'next'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { CandidateType } from 'types/Candidate.type'
+import { JobType } from 'types/Jobs.type'
 import Header from 'components/Layout/Header'
-import { useNavigate } from 'utils/navigate'
-import { CandidateCard } from 'components/CandidateCard'
 import { HiringManagerNav } from 'components/Nav/HiringManagerNav'
-import { useRouter } from 'next/router'
+import { Candidates } from 'modules/HiringManager/Candidates'
+import { Jobs } from 'modules/HiringManager/Jobs'
+import { Questions } from 'modules/HiringManager/Questions'
+import { QuestionType } from 'types/Question.type'
 
 interface Props {
   userId: string
@@ -16,17 +18,19 @@ interface Props {
 
 function Developer ({ userId }: Props) {
   const { supabaseClient } = useSessionContext()
-  const router = useRouter()
 
   const [candidates, setCandidates] = useState<CandidateType[] | null>(null)
+  const [jobs, setJobs] = useState<JobType[] | null>(null)
+  const [questions, setQuestions] = useState<QuestionType[] | null>(null)
   const [loading, setLoading] = useState(false)
-  // const [queryText] = useState('')
-  const { navigate } = useNavigate()
+  const [activeNav, setActiveNav] = useState('developers')
+  const [isSucess, setSuccess] = useState(false)
 
   const getUsers = async () => {
     setLoading(true)
     const { data } = await supabaseClient.from('users').select('*')
     setLoading(false)
+    console.log(data, 'data')
     setCandidates(data as unknown as CandidateType[])
   }
 
@@ -36,33 +40,22 @@ function Developer ({ userId }: Props) {
       .from('jobs')
       .select('*')
       .order('id', { ascending: false })
-
-    console.log(data, 'data')
+    setJobs(data as unknown as JobType[])
     setLoading(false)
   }
 
   const getQuestions = async () => {
     setLoading(true)
     const { data } = await supabaseClient.from('questions').select('*')
-    console.log(data, 'data')
+    setQuestions(data as unknown as QuestionType[])
     setLoading(false)
   }
 
-  // const searchUsers = async () => {
-  //   const { data } = await supabaseClient
-  //     .from('users')
-  //     .select('*')
-  //     .textSearch('first_name', `"${queryText}"`)
-  //   console.log(data, 'data')
-  // }
-
   useEffect(() => {
-    if (userId) {
-      getUsers()
-      getJobs()
-      getQuestions()
-    }
-  }, [userId])
+    getUsers()
+    getJobs()
+    getQuestions()
+  }, [isSucess])
 
   return (
     <>
@@ -75,30 +68,24 @@ function Developer ({ userId }: Props) {
             ) : (
               <Stack width='100%' gap={3}>
                 <Stack flexDirection='row' justifyContent='space-between'>
-                  <HiringManagerNav activeRoute={router?.pathname} />
+                  <HiringManagerNav
+                    activeRoute={activeNav}
+                    setActiveNav={(nav) => setActiveNav(nav)}
+                  />
                   {/* <SearchField
                     onChange={(event: { target: { value: SetStateAction<string> } }) => setQueryText(event.target.value)}
                     onBlur={searchUsers}
                   /> */}
                 </Stack>
-                {candidates?.map((candidate, index) => {
-                  if (candidate?.first_name === null) {
-                    return null
-                  }
-
-                  return (
-                    <Box
-                      key={index}
-                      onClick={() =>
-                        navigate(
-                          `/hiring-manager/developer/${candidate?.userId}`
-                        )}
-                      sx={{ cursor: 'pointer' }}
-                    >
-                      <CandidateCard candidate={candidate} />
-                    </Box>
-                  )
-                })}
+                {activeNav === 'developers' && (
+                  <Candidates list={candidates ?? []} />
+                )}
+                {activeNav === 'jobs' && (
+                  <Jobs list={jobs ?? []} setSuccess={setSuccess} />
+                )}
+                {activeNav === 'questions' && (
+                  <Questions list={questions ?? []} setSuccess={setSuccess} />
+                )}
               </Stack>
             )}
           </Stack>

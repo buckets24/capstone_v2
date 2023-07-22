@@ -25,8 +25,8 @@ function QuestionForm ({
 
   const [submitting, setSubmitting] = useState(false)
 
-  const notifySuccess = () => toast.success('Successfully update the profile.')
-  const notifyError = () => toast.error('Error updating the profile.')
+  const notifySuccess = () => toast.success('Successfully update the question.')
+  const notifyError = () => toast.error('Error updating the question.')
 
   const props = useFormik({
     initialValues: {
@@ -71,7 +71,7 @@ function QuestionForm ({
   return (
     <>
       <form>
-        <Stack direction='column' gap={3}>
+        <Stack direction='column' gap={3} p={2}>
           <Stack flexDirection='row' justifyContent='space-between' gap={1}>
             <Box flex={1} width={500}>
               <FormTextField
