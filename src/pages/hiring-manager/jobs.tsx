@@ -26,7 +26,7 @@ interface Props {
   userId: string
 }
 
-function JobsPage ({ userId }: Props) {
+function JobsPage({ userId }: Props) {
   const { supabaseClient } = useSessionContext()
   const router = useRouter()
   const { jobs, setJobs, setJob } = useJobsStore()
@@ -42,7 +42,7 @@ function JobsPage ({ userId }: Props) {
     const { data } = await supabaseClient
       .from('jobs')
       .select('*')
-      .order('id', { ascending: false })
+    // .order('id', { ascending: false })
 
     setLoading(false)
     setSuccess(false)

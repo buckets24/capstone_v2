@@ -14,7 +14,7 @@ interface Props {
   userId: string
 }
 
-function Developer ({ userId }: Props) {
+function Developer({ userId }: Props) {
   const { supabaseClient } = useSessionContext()
   const router = useRouter()
 
@@ -30,6 +30,17 @@ function Developer ({ userId }: Props) {
     setCandidates(data as unknown as CandidateType[])
   }
 
+  const getJobs = async () => {
+    setLoading(true)
+
+    await supabaseClient
+      .from('jobs')
+      .select('*')
+      .order('id', { ascending: false })
+
+    setLoading(false)
+  }
+
   // const searchUsers = async () => {
   //   const { data } = await supabaseClient
   //     .from('users')
@@ -41,6 +52,7 @@ function Developer ({ userId }: Props) {
   useEffect(() => {
     if (userId) {
       getUsers()
+      getJobs()
     }
   }, [userId])
 
