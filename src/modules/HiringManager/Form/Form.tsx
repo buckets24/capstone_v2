@@ -13,15 +13,17 @@ interface ProfileAboutFormModuleProps {
   onClose: () => void
   callback: () => void
   currentIndex: number | null
+  jobs?: JobType[]
 }
 
 function HiringManagerForm ({
   onClose,
   callback,
-  currentIndex
+  currentIndex,
+  jobs
 }: ProfileAboutFormModuleProps) {
   const { supabaseClient } = useSessionContext()
-  const { job, jobs, setJob } = useJobsStore()
+  const { job, setJob } = useJobsStore()
 
   const [submitting, setSubmitting] = useState(false)
 
@@ -85,6 +87,8 @@ function HiringManagerForm ({
       }
     }
   })
+
+  console.log(jobs)
 
   useEffect(() => {
     setJob({ ...job, ...props?.values } as JobType)

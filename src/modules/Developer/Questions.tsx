@@ -30,11 +30,8 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
   const [submitting, setSubmitting] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  console.log(candidateState, 'candidateState')
-
-  const notifySuccess = () =>
-    toast.success('Successfully update your experience.')
-  const notifyError = () => toast.success('Error updating the your experience.')
+  const notifySuccess = () => toast.success('Successfully update your Answers.')
+  const notifyError = () => toast.success('Error updating the your answers.')
 
   const getQuestions = async () => {
     setLoading(true)
@@ -43,10 +40,17 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
 
     setLoading(false)
 
+    const mappedData = data?.map((item) => ({
+      ...item,
+      answer: candidateState?.questions?.filter(
+        (state) => state.question === item.question
+      )?.[0]?.answer
+    })) as unknown as DeveloperQuestionType[]
+
     if (data?.length === 0) {
       setQuestions(null)
     } else {
-      setQuestions(data as unknown as DeveloperQuestionType[])
+      setQuestions(mappedData)
     }
   }
 
@@ -56,7 +60,7 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
 
       const newItems = questions?.map((item, i) => {
         if (index === i) {
-          return { question: item?.question, answer: e.target.value }
+          return { ...item, question: item?.question, answer: e.target.value }
         } else {
           return item
         }
@@ -102,6 +106,10 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
     getQuestions()
   }, [])
 
+  useEffect(() => {
+    console.log(questions, 'questions')
+  }, [questions])
+
   return (
     <Paper sx={{ overflow: 'hidden', px: 4 }}>
       <Box mb={5}>
@@ -136,7 +144,7 @@ function DeveloperQuestionsModule ({ user }: DeveloperMainInfoProps) {
                       <FormTextField
                         rows={10}
                         multiline
-                        value={item?.answer}
+                        value={item.answer}
                         fullWidth
                         onChange={updateAnswer(index)}
                       />

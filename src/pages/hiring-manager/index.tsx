@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Container, Stack } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { SetStateAction, useEffect, useState } from 'react'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { GetServerSidePropsContext } from 'next'
 import { useSessionContext } from '@supabase/auth-helpers-react'
@@ -11,15 +11,15 @@ import { Candidates } from 'modules/HiringManager/Candidates'
 import { Jobs } from 'modules/HiringManager/Jobs'
 import { Questions } from 'modules/HiringManager/Questions'
 import { QuestionType } from 'types/Question.type'
+import { SearchField } from 'components/Form/SearchField'
 
-interface Props {
-  userId: string
-}
-
-function Developer ({ userId }: Props) {
+function HiringManager () {
   const { supabaseClient } = useSessionContext()
 
   const [candidates, setCandidates] = useState<CandidateType[] | null>(null)
+  const [candidatesQueries, setCandidatesQueries] = useState<
+    CandidateType[] | null
+  >(null)
   const [jobs, setJobs] = useState<JobType[] | null>(null)
   const [questions, setQuestions] = useState<QuestionType[] | null>(null)
   const [loading, setLoading] = useState(false)
@@ -30,8 +30,8 @@ function Developer ({ userId }: Props) {
     setLoading(true)
     const { data } = await supabaseClient.from('users').select('*')
     setLoading(false)
-    console.log(data, 'data')
     setCandidates(data as unknown as CandidateType[])
+    setCandidatesQueries(data as unknown as CandidateType[])
   }
 
   const getJobs = async () => {
@@ -49,6 +49,25 @@ function Developer ({ userId }: Props) {
     const { data } = await supabaseClient.from('questions').select('*')
     setQuestions(data as unknown as QuestionType[])
     setLoading(false)
+  }
+
+  const handleSearch = (value: string) => {
+    console.log(value, 'value')
+    const copy = JSON.stringify(candidates)
+
+    const filteredCandidates = JSON.parse(copy)?.filter(
+      (item: { name: string }) => {
+        const fullName = `${item.name}`
+        console.log(fullName)
+        return fullName.toLowerCase().includes(value.toLowerCase())
+      }
+    )
+
+    if (value === '') {
+      return setCandidates(candidatesQueries)
+    } else {
+      return setCandidates(filteredCandidates as unknown as CandidateType[])
+    }
   }
 
   useEffect(() => {
@@ -72,10 +91,11 @@ function Developer ({ userId }: Props) {
                     activeRoute={activeNav}
                     setActiveNav={(nav) => setActiveNav(nav)}
                   />
-                  {/* <SearchField
-                    onChange={(event: { target: { value: SetStateAction<string> } }) => setQueryText(event.target.value)}
-                    onBlur={searchUsers}
-                  /> */}
+                  <SearchField
+                    onChange={(event: {
+                      target: { value: SetStateAction<string> }
+                    }) => handleSearch(String(event.target.value))}
+                  />
                 </Stack>
                 {activeNav === 'developers' && (
                   <Candidates list={candidates ?? []} />
@@ -95,7 +115,7 @@ function Developer ({ userId }: Props) {
   )
 }
 
-export default Developer
+export default HiringManager
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const supabase = createServerSupabaseClient(ctx)
