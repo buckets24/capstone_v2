@@ -1,13 +1,13 @@
 import { Stack, Box } from '@mui/material'
 import { Button } from 'components/Button/Button'
-import { useNavigate } from 'utils/navigate'
+import { useRouter } from 'next/router'
 
 interface HiringManagerNavProps {
   activeRoute: string
 }
 
 function HiringManagerNav ({ activeRoute }: HiringManagerNavProps) {
-  const { navigate } = useNavigate()
+  const router = useRouter()
   return (
     <Stack
       flexDirection='row'
@@ -21,7 +21,8 @@ function HiringManagerNav ({ activeRoute }: HiringManagerNavProps) {
           labelColor={activeRoute === '/hiring-manager' ? 'inherit' : 'primary'}
           variant={activeRoute === '/hiring-manager' ? 'contained' : 'outlined'}
           label='Developers'
-          onClick={() => navigate('/hiring-manager')}
+          onClick={() =>
+            router.push('/hiring-manager', undefined, { shallow: true })}
         />
       </Box>
       <Box>
@@ -34,7 +35,8 @@ function HiringManagerNav ({ activeRoute }: HiringManagerNavProps) {
             activeRoute === '/hiring-manager/jobs' ? 'contained' : 'outlined'
           }
           label='Jobs'
-          onClick={() => navigate('/hiring-manager/jobs')}
+          onClick={() =>
+            router.push('/hiring-manager/jobs', undefined, { shallow: true })}
         />
       </Box>
       <Box>
@@ -49,7 +51,10 @@ function HiringManagerNav ({ activeRoute }: HiringManagerNavProps) {
               : 'outlined'
           }
           label='Questions'
-          onClick={() => navigate('/hiring-manager/questions')}
+          onClick={() =>
+            router.push('/hiring-manager/questions', undefined, {
+              shallow: true
+            })}
         />
       </Box>
       {/* <Box>
