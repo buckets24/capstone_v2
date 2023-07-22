@@ -32,12 +32,19 @@ function Developer ({ userId }: Props) {
 
   const getJobs = async () => {
     setLoading(true)
-
-    await supabaseClient
+    const { data } = await supabaseClient
       .from('jobs')
       .select('*')
       .order('id', { ascending: false })
 
+    console.log(data, 'data')
+    setLoading(false)
+  }
+
+  const getQuestions = async () => {
+    setLoading(true)
+    const { data } = await supabaseClient.from('questions').select('*')
+    console.log(data, 'data')
     setLoading(false)
   }
 
@@ -53,6 +60,7 @@ function Developer ({ userId }: Props) {
     if (userId) {
       getUsers()
       getJobs()
+      getQuestions()
     }
   }, [userId])
 
