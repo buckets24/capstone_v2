@@ -10,7 +10,7 @@ import { CandidateType } from 'types/Candidate.type'
 import { developerQuestions } from 'utils/developerQuestions'
 import { useNavigate } from 'utils/navigate'
 
-export default function RoleSelectPage ({
+export default function RoleSelectPage({
   userId,
   userEmail
 }: {
@@ -34,8 +34,7 @@ export default function RoleSelectPage ({
       .update([
         {
           ...candidate,
-          role,
-          userId
+          role
         }
       ])
       .eq('email', user?.email)
@@ -59,7 +58,8 @@ export default function RoleSelectPage ({
         {
           role,
           email: user?.email,
-          questions: developerQuestions
+          questions: developerQuestions,
+          userId
         }
       ])
       .eq('email', user?.email)
