@@ -10,7 +10,7 @@ import { CandidateType } from 'types/Candidate.type'
 import { developerQuestions } from 'utils/developerQuestions'
 import { useNavigate } from 'utils/navigate'
 
-export default function RoleSelectPage ({
+export default function RoleSelectPage({
   userId,
   userEmail
 }: {
@@ -26,8 +26,8 @@ export default function RoleSelectPage ({
   const hasRecords = candidate !== undefined
 
   const notifySuccess = () =>
-    toast.success('Successfully update your experience.')
-  const notifyError = () => toast.success('Error updating the your experience.')
+    toast.success('Successfully added your role.')
+  const notifyError = () => toast.success('Error adding the your role.')
 
   const updateRole = async (role: string) => {
     const { data, error } = await supabaseClient
@@ -35,7 +35,8 @@ export default function RoleSelectPage ({
       .update([
         {
           ...candidate,
-          role
+          role,
+          userId: userId
         }
       ])
       .eq('email', user?.email)
