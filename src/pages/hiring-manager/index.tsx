@@ -13,7 +13,7 @@ import { Questions } from 'modules/HiringManager/Questions'
 import { QuestionType } from 'types/Question.type'
 import { SearchField } from 'components/Form/SearchField'
 
-function HiringManager() {
+function HiringManager () {
   const { supabaseClient } = useSessionContext()
 
   const [candidates, setCandidates] = useState<CandidateType[] | null>(null)
@@ -56,7 +56,7 @@ function HiringManager() {
     const copy = JSON.stringify(candidates)
 
     const filteredCandidates = JSON.parse(copy)?.filter(
-      (item: { first_name: string, last_name: string }) => {
+      (item: { first_name: string; last_name: string }) => {
         const fullName = `${item.first_name} ${item.last_name}`
         return fullName.toLowerCase().includes(value.toLowerCase())
       }

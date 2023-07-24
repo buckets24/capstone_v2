@@ -10,7 +10,7 @@ import { CandidateType } from 'types/Candidate.type'
 import { developerQuestions } from 'utils/developerQuestions'
 import { useNavigate } from 'utils/navigate'
 
-export default function RoleSelectPage({
+export default function RoleSelectPage ({
   userId,
   userEmail
 }: {
@@ -25,8 +25,7 @@ export default function RoleSelectPage({
 
   const hasRecords = candidate !== undefined
 
-  const notifySuccess = () =>
-    toast.success('Successfully added your role.')
+  const notifySuccess = () => toast.success('Successfully added your role.')
   const notifyError = () => toast.success('Error adding the your role.')
 
   const updateRole = async (role: string) => {
@@ -36,7 +35,7 @@ export default function RoleSelectPage({
         {
           ...candidate,
           role,
-          userId: userId
+          userId
         }
       ])
       .eq('email', user?.email)
